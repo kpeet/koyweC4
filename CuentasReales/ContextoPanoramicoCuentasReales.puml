@@ -10,8 +10,6 @@ LAYOUT_WITH_LEGEND()
 title Diagrama Panorámico de sistema Módulo Cuentas Reales
 
 Person(agente_cumplo, "Agente Cumplo", "Usuario interno de Cumplo.")
-System_Ext(fintoc, "Fintoc", "API simple para hacer conciliación bancaria.")
-System_Ext(prometeo, "Prometeo", "API simple para hacer conciliación bancaria.")
 Enterprise_Boundary(c0, "Cumplo") {
     System_Ext(s_tesoreria, "Sitio Tesorería", " permite operar como Agente Cumplo de forma segura con procesos sensibles en Cumplo.")
     System( modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
@@ -20,6 +18,11 @@ Enterprise_Boundary(c0, "Cumplo") {
     System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de cuentas virtuales, movimientos y saldos.")
     System_Ext(modulo_operaciones, "Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
     System_Ext(modulo_api_cumplo, "Api Cumplo", "Expone servicios para el consumo de sistemas externos a Cumplo y sitios.")
+
+}
+System_Boundary(sistemas_externos, "Sistemas externos"){
+    System_Ext(fintoc, "Fintoc", "API simple para hacer conciliación bancaria.")
+    System_Ext(prometeo, "Prometeo", "API simple para hacer conciliación bancaria.")
 
 }
 
@@ -32,11 +35,11 @@ Rel(modulo_registro_actores, modulo_cuentas_reales, "Actor", "HTTPS")
 Rel(modulo_cuentas_reales, modulo_cuentas_virtuales, "envía Transacciones", "HTTPS")
 Rel(modulo_operaciones, modulo_cuentas_reales, "pagos pendientes", "HTTPS")
 Rel(modulo_cuentas_reales, modulo_autenticacion, "envía token", "HTTPS")
-Rel(modulo_api_cumplo, modulo_cuentas_reales, "expone servicios de")
+Rel_R(modulo_api_cumplo, modulo_cuentas_reales, "expone servicios de")
 
 'Relaciones usuarios/sitios
  
- Rel(agente_cumplo, s_tesoreria, "", "")
+ Rel(agente_cumplo, s_tesoreria, "https://treasury.cumplo.com",)
 
 
 'Relaciones sitios/módulos
@@ -45,8 +48,8 @@ Rel(s_tesoreria,modulo_cuentas_reales, "asocia depositos y gestiona nóminas usa
 
 
 'Relaciones módulos/sistemas externos
-Rel_L( modulo_cuentas_reales,fintoc, "obtiene movimientos bancarios usando", "HTTPS")
-Rel_L( modulo_cuentas_reales,prometeo, "obtiene movimientos bancarios usando", "HTTPS")
+Rel( modulo_cuentas_reales,fintoc, "obtiene movimientos bancarios usando", "HTTPS")
+Rel( modulo_cuentas_reales,prometeo, "obtiene movimientos bancarios usando", "HTTPS")
 
 
 'Lay_D(atm, banking_system)

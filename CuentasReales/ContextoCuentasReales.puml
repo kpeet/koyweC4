@@ -30,8 +30,9 @@ Rel(modulo_cuentas_reales, modulo_autenticacion, "envía token", "HTTPS")
 Rel(modulo_api_cumplo, modulo_cuentas_reales, "expone servicios de")
 
 'Relaciones módulos/sistemas externos
-Rel_L( modulo_cuentas_reales,fintoc, "obtiene movimientos bancarios usando", "HTTPS")
-Rel_L( modulo_cuentas_reales,prometeo, "obtiene movimientos bancarios usando", "HTTPS")
+Rel_R( modulo_cuentas_reales,fintoc, "obtiene movimientos bancarios usando", "HTTPS")
+Rel_R( modulo_cuentas_reales,prometeo, "obtiene movimientos bancarios usando", "HTTPS")
+
 
 
 
