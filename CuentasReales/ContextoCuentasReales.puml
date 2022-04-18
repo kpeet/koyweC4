@@ -16,13 +16,23 @@ System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de c
 System_Ext(modulo_operaciones, "Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
 System_Ext(modulo_api_cumplo, "Api Cumplo", "Expone servicios para el consumo de sistemas externos a Cumplo y sitios.")
 
+System_Ext(fintoc, "Fintoc", "API simple para hacer conciliación bancaria.")
+System_Ext(prometeo, "Prometeo", "API simple para hacer conciliación bancaria.")
 
 
 
-Rel_Neighbor(modulo_registro_actores, modulo_cuentas_reales, "Actor", "HTTPS")
-Rel_Neighbor(modulo_cuentas_reales, modulo_cuentas_virtuales, "envía Transacciones", "HTTPS")
-Rel_Neighbor(modulo_operaciones, modulo_cuentas_reales, "pagos pendientes", "HTTPS")
+'Relaciones sistema/módulos
+
+Rel(modulo_registro_actores, modulo_cuentas_reales, "Actor", "HTTPS")
+Rel(modulo_cuentas_reales, modulo_cuentas_virtuales, "envía Transacciones", "HTTPS")
+Rel(modulo_operaciones, modulo_cuentas_reales, "pagos pendientes", "HTTPS")
 Rel(modulo_cuentas_reales, modulo_autenticacion, "envía token", "HTTPS")
 Rel(modulo_api_cumplo, modulo_cuentas_reales, "expone servicios de")
+
+'Relaciones módulos/sistemas externos
+Rel_L( modulo_cuentas_reales,fintoc, "obtiene movimientos bancarios usando", "HTTPS")
+Rel_L( modulo_cuentas_reales,prometeo, "obtiene movimientos bancarios usando", "HTTPS")
+
+
 
 @enduml
