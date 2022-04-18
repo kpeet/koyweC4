@@ -1,0 +1,65 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Diagrama Panorámico de sistema Módulo Ciclo de vida Operacion
+Person(solicitante, "Solicitante", "Usuario que requiere financiamiento.")
+Person(inversionista, "Inversionista", "Usuario que requiere rentabilizar su Capital.")
+Person(pagador, "Pagador", "Usuario que gestionar sus CxP.")
+Person(agente_cumplo, "Agente Cumplo", "Usuario interno de Cumplo.")
+Enterprise_Boundary(c0, "Cumplo") {
+    System(modulo_operaciones, "Módulo Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
+    System_Ext(modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
+    System_Ext(modulo_autenticacion, "Módulo Autenticación", "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas.")
+    System_Ext(modulo_registro_actores, "Módulo Registro actores", "El contenedor de Actores (Empresa/Persona) y su perfil detallado.")
+    System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de cuentas virtuales, movimientos y saldos.")
+    System_Ext(modulo_api_cumplo, "Api Cumplo", "Expone servicios para el consumo de sistemas externos a Cumplo y sitios.")
+    System_Ext(modulo_respaldo_facturas, "Módulo Respaldos y Facturas", "El supervisor de información de respaldos.")
+    System_Ext(s_financiamiento, "Sitio Financiamiento", "Permite operar desde un sitio web, como solicitante y obtener financiamiento.")
+    System_Ext(s_inversionista, "Sitio Inversionista", "Permite operar desde un sitio web, como inversionista y rentabilizar su Capital.")
+    System_Ext(s_cuentas_x_pagar, "Sitio Cuentas por Pagar", "Permite operar desde un sitio web, como Solicitante en Cumplo y obtener financiamiento.")
+    System_Ext(s_administracion, "Sitio Administración", "Permite operar desde un sitio web, como Agente Cumplo en procesos NO sensibles.")
+    System_Ext(s_tesoreria, "Sitio Tesorería", "Permite operar desde un sitio web, como Agente Cumplo en procesos sensibles.")
+}
+
+
+'RELACIONES DE SISTEMA
+'Relaciones sistema/módulos
+
+Rel_R(modulo_registro_actores, modulo_operaciones, "Actor", "HTTPS")
+Rel_R(modulo_operaciones, modulo_cuentas_reales, "pagos pendientes", "HTTPS")
+Rel(modulo_operaciones, modulo_autenticacion, "envía token", "HTTPS")
+Rel(modulo_operaciones, modulo_respaldo_facturas, "Valida facturas reales, confirmadas, pagadas usando")
+Rel_U(modulo_cuentas_virtuales, modulo_operaciones, "Saldos, Movimientos, de dinero interno", "HTTPS")
+Rel(modulo_api_cumplo, modulo_operaciones, "expone servicios de")
+
+
+'Relaciones usuarios/sitios
+ 
+Rel(agente_cumplo, s_tesoreria, "https://treasury.cumplo.com",)
+Rel(solicitante, s_financiamiento, "https://financiamiento.cumplo.[cl, mx, pe]",)
+Rel(inversionista, s_inversionista, "https://treasury.cumplo.com",)
+Rel(pagador, s_cuentas_x_pagar, "https://treasury.cumplo.com",)
+Rel(agente_cumplo, s_administracion, "https://treasury.cumplo.com",)
+
+
+
+'Relaciones sitios/módulos
+
+Rel(s_tesoreria,modulo_operaciones, "", "")
+Rel(s_administracion,modulo_operaciones, "", "")
+Rel(s_cuentas_x_pagar,modulo_operaciones, "", "")
+Rel(s_financiamiento,modulo_operaciones, "", "")
+Rel(s_tesoreria,modulo_operaciones, "", "")
+Rel(s_tesoreria,modulo_operaciones, "", "")
+
+
+'Relaciones módulos/sistemas externos
+
+
+@enduml
