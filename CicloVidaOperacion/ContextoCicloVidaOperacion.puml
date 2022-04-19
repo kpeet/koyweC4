@@ -1,4 +1,4 @@
-@startuml
+@startuml ContextoOperacion
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
@@ -9,23 +9,23 @@ title Contexto de sistemas Módulo Ciclo de vida de la Operación
 
 System(modulo_operaciones, "Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
 
-System_Ext( modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
+System_Ext(modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
 System_Ext(modulo_autenticacion, "Módulo Autenticación", "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas.")
 System_Ext(modulo_registro_actores, "Módulo Registro actores", "El contenedor de Actores (Empresa/Persona) y su perfil detallado.")
 System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de cuentas virtuales, movimientos y saldos.")
-System_Ext(modulo_api_cumplo, "Api Cumplo", "Expone servicios para el consumo de sistemas externos a Cumplo y sitios.")
 System_Ext(modulo_respaldo_facturas, "Módulo Respaldos y Facturas", "El supervisor de información de respaldos.")
+System_Ext(modulo_autorizacion, "Módulo Autorizacion", "")
 
 
 
 'Relaciones sistema/módulos
 
-Rel(modulo_registro_actores, modulo_operaciones, "Actor", "HTTPS")
-Rel(modulo_cuentas_virtuales, modulo_operaciones, "Saldos, Movimientos, de dinero interno", "HTTPS")
-Rel(modulo_operaciones, modulo_cuentas_reales, "pagos pendientes", "HTTPS")
-Rel(modulo_operaciones, modulo_autenticacion, "envía token", "HTTPS")
-Rel(modulo_operaciones, modulo_respaldo_facturas, "Valida facturas reales, confirmadas, pagadas usando")
-Rel(modulo_api_cumplo, modulo_operaciones, "expone servicios de")
+Rel(modulo_registro_actores, modulo_operaciones, "Actor",)
+Rel(modulo_cuentas_virtuales, modulo_operaciones, "Cuentas Virtuales",)
+Rel(modulo_operaciones, modulo_cuentas_reales, "Pagos", )
+Rel( modulo_autenticacion,modulo_operaciones, "Acceso", )
+Rel( modulo_respaldo_facturas, modulo_operaciones, "Respaldos y Facturas")
+Rel(modulo_autorizacion, modulo_operaciones, "Autorrización")
 
 'Relaciones módulos/sistemas externos
 
