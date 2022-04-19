@@ -1,0 +1,4 @@
+!global $TITULO_CUENTAS_REALES = "Módulos Cuentas Reales"
+!global $DESCRIPCION_CUENTAS_REALES = "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso."
+!global $TITULO_AUTENTICACION = "Módulo Autenticación"
+!global $DESCRIPCION_AUTENTICACION =  "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas."
