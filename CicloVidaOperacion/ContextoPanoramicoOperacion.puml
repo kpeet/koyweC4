@@ -63,11 +63,11 @@ Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
 
 'Relaciones sitios/módulos
 
-Rel(s_tesoreria,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
-Rel(s_administracion,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
-Rel(s_cuentas_x_pagar,modulo_operaciones, $MODELO_OPERACION)
-Rel(s_financiamiento,modulo_operaciones,$MODELO_OPERACION )
-Rel(s_inversionista,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION")
+Rel_Back(s_tesoreria,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
+Rel_Back(s_administracion,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
+Rel_Back(s_cuentas_x_pagar,modulo_operaciones, $MODELO_OPERACION)
+Rel_Back(s_financiamiento,modulo_operaciones,$MODELO_OPERACION )
+Rel_Back(s_inversionista,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION")
 
 
 'Relaciones módulos/sistemas externos
