@@ -1,1 +1,30 @@
-!global $TEST_ALGO = "#444444"
+'SITIO 
+!global $TITULO_SITIO_TESORERIA = "Sitio Tesorería"
+!global $DESCRIPCION_SITIO_TESORERIA  =  "Permite operar como Agente Cumplo de forma segura con procesos sensibles en Cumplo."
+!global $DOMINIO_SITIO_TESORERIA = "https://treasury.cumplo.com"
+
+'SITIO 
+!global $TITULO_SITIO_FINANCIAMIENTO = "Sitio Financiamiento"
+!global $DESCRIPCION_SITIO_FINANCIAMIENTO = "Permite operar desde un sitio web, como solicitante y obtener financiamiento."
+!global $DOMINIO_SITIO_FINANCIAMIENTO = "https://financiamiento.cumplo.[cl, mx, pe]"
+
+'SITIO INVERSIONISTA
+!global $TITULO_SITIO_INVERSIONISTA = "Sitio Inversionista"
+!global $DESCRIPCION_SITIO_INVERSIONISTA = "Permite operar desde un sitio web, como inversionista y rentabilizar su Capital."
+!global $DOMINIO_SITIO_INVERSIONISTA = "https://XXX.cumplo.com"
+
+'SITIO CXP
+!global $TITULO_SITIO_CXP = "Sitio Cuentas por Pagar"
+!global $DESCRIPCION_SITIO_CXP = "Permite operar desde un sitio web, como Solicitante en Cumplo y obtener financiamiento."
+!global $DOMINIO_SITIO_CXP = "https://XXX.cumplo.com"
+
+'SITIO ADMINISTRACION
+!global $TITULO_SITIO_ADMINISTRACION = "Sitio Administración"
+!global $DESCRIPCION_SITIO_ADMINISTRACION = "Permite operar desde un sitio web, como Agente Cumplo en procesos NO sensibles."
+!global $DOMINIO_SITIO_ADMINISTRACION = "https://admin.cumplo.com"
+
+
+
+
+
+

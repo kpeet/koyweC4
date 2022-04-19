@@ -1,1 +1,5 @@
-!global $TEST_ALGO = "#444444"
+!global $S_EXT_TITULO_FINTOC= "Fintoc"
+!global $S_EXT_DESCRIPCION_FINTOC= "API simple para hacer conciliación bancaria."
+
+!global $S_EXT_TITULO_PROMETEO= "Prometeo"
+!global $S_EXT_DESCRIPCION_PROMETEO= "API simple para hacer conciliación bancaria."

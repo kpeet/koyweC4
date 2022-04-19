@@ -1,0 +1,11 @@
+!global $MODELO_ACTOR= "Actor"
+!global $MODELO_MOVIMIENTO= "Movimiento"
+!global $MODELO_PAGO= "Pago"
+!global $MODELO_ACCESO= "Acceso"
+!global $MODELO_TRANSACCION= "Transacción bancaria"
+
+!global $MODELO_RESPALDO= "Respaldos y Facturas"
+!global $MODELO_CUENTA_VIRTUAL= "Cuenta Virtual"
+!global $MODELO_AUTORIZACION="Autorización"
+!global $MODELO_OPERACION="Operación"
+!global $MODELO_INVERSION="Inversión"

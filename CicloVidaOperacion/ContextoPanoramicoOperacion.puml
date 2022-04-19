@@ -3,62 +3,71 @@
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
 
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sitios.puml
+!include ../textos/sistemas_externos_cumplo.puml
+!include ../textos/usuarios.puml
+
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
 title Diagrama Panorámico de sistema Módulo Ciclo de vida Operacion
-Person_Ext(solicitante, "Solicitante", "Usuario que requiere financiamiento.")
-Person_Ext(inversionista, "Inversionista", "Usuario que requiere rentabilizar su Capital.")
-Person_Ext(pagador, "Pagador", "Usuario que gestionar sus CxP.")
-Person_Ext(agente_cumplo, "Agente Cumplo", "Usuario interno de Cumplo.")
+Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
+Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
+Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
+Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
 
 System_Ext(hubspot, "HubSpot??", "Hay algún modulo externo que hable con el ciclo de vida, por ejemplo hubspot??.")
 
 
 Enterprise_Boundary(c0, "Cumplo") {
-    System(modulo_operaciones, "Módulo Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
-    System_Ext(modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
-    System_Ext(modulo_autenticacion, "Módulo Autenticación", "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas.")
-    System_Ext(modulo_registro_actores, "Módulo Registro actores", "El contenedor de Actores (Empresa/Persona) y su perfil detallado.")
-    System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de cuentas virtuales, movimientos y saldos.")
-    System_Ext(modulo_respaldo_facturas, "Módulo Respaldos y Facturas", "El supervisor de información de respaldos.")
-    System_Ext(modulo_autorizacion, "Módulo Autorizacion", "")
-    System_Ext(s_financiamiento, "Sitio Financiamiento", "Permite operar desde un sitio web, como solicitante y obtener financiamiento.")
-    System_Ext(s_inversionista, "Sitio Inversionista", "Permite operar desde un sitio web, como inversionista y rentabilizar su Capital.")
-    System_Ext(s_cuentas_x_pagar, "Sitio Cuentas por Pagar", "Permite operar desde un sitio web, como Solicitante en Cumplo y obtener financiamiento.")
-    System_Ext(s_administracion, "Sitio Administración", "Permite operar desde un sitio web, como Agente Cumplo en procesos NO sensibles.")
-    System_Ext(s_tesoreria, "Sitio Tesorería", "Permite operar desde un sitio web, como Agente Cumplo en procesos sensibles.")
+    System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+    System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+    System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+    System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+    System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+    System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
+    System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+
+    
+    
+    System_Ext(s_financiamiento,$TITULO_SITIO_FINANCIAMIENTO , $DESCRIPCION_SITIO_FINANCIAMIENTO )
+    System_Ext(s_inversionista,$TITULO_SITIO_INVERSIONISTA ,$DESCRIPCION_SITIO_INVERSIONISTA )
+    System_Ext(s_cuentas_x_pagar,$TITULO_SITIO_CXP ,$DESCRIPCION_SITIO_CXP )
+    System_Ext(s_administracion, $TITULO_SITIO_ADMINISTRACION,$DESCRIPCION_SITIO_ADMINISTRACION )
+    System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
 }
 
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-Rel_L(modulo_autorizacion, modulo_operaciones, "Autorrización")
-Rel_L( modulo_autenticacion,modulo_operaciones, "Acceso", )
-Rel_U(modulo_registro_actores, modulo_operaciones, "Actor",)
-Rel(modulo_operaciones, modulo_cuentas_reales, "Pagos", )
-Rel_U(modulo_respaldo_facturas, modulo_operaciones, "Respaldos y Facturas")
-Rel_U(modulo_cuentas_virtuales, modulo_operaciones, "Cuentas Virtuales",)
+Rel_U(modulo_autorizacion, modulo_operaciones, $MODELO_AUTORIZACION)
+Rel_U( modulo_autenticacion,modulo_operaciones, $MODELO_ACCESO )
+Rel_U(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
+Rel(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO )
+Rel_U(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
+Rel_U(modulo_cuentas_virtuales, modulo_operaciones, $MODELO_CUENTA_VIRTUAL)
 
 
 'Relaciones usuarios/sitios
  
-Rel(agente_cumplo, s_tesoreria, "https://treasury.cumplo.com",)
-Rel(solicitante, s_financiamiento, "https://financiamiento.cumplo.[cl, mx, pe]",)
-Rel(inversionista, s_inversionista, "https://XXX.cumplo.com",)
-Rel(pagador, s_cuentas_x_pagar, "https://XXX.cumplo.com",)
-Rel(agente_cumplo, s_administracion, "https://admin.cumplo.com",)
+Rel(agente_cumplo, s_tesoreria, $DOMINIO_SITIO_TESORERIA)
+Rel(solicitante, s_financiamiento,$DOMINIO_SITIO_FINANCIAMIENTO)
+Rel(inversionista, s_inversionista,$DOMINIO_SITIO_INVERSIONISTA)
+Rel(pagador, s_cuentas_x_pagar, $DOMINIO_SITIO_CXP)
+Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
 
 
 
 'Relaciones sitios/módulos
 
-Rel(s_tesoreria,modulo_operaciones, "Inversión, Operación, Pagos", "")
-Rel(s_administracion,modulo_operaciones, "Inversión, Operación, Pagos", "")
-Rel(s_cuentas_x_pagar,modulo_operaciones, "Operación", "")
-Rel(s_financiamiento,modulo_operaciones, "Operación", "")
-Rel(s_inversionista,modulo_operaciones, "Inversión, Operación", "")
+Rel(s_tesoreria,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
+Rel(s_administracion,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
+Rel(s_cuentas_x_pagar,modulo_operaciones, $MODELO_OPERACION)
+Rel(s_financiamiento,modulo_operaciones,$MODELO_OPERACION )
+Rel(s_inversionista,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION")
 
 
 'Relaciones módulos/sistemas externos
