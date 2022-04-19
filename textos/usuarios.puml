@@ -1,0 +1,14 @@
+!global $TITULO_AGENTE_CUMPLO = "Agente Cumplo"
+!global $DESCRIPCION_AGENTE_CUMPLO = "Usuario interno de Cumplo."
+
+!global $TITULO_SOLICITANTE = "Solicitante"
+!global $DESCRIPCION_SOLICITANTE = "Usuario que requiere financiamiento."
+
+!global $TITULO_INVERSIONISTA = "Inversionista"
+!global $DESCRIPCION_INVERSIONISTA = "Usuario que requiere rentabilizar su Capital."
+
+!global $TITULO_PAGADOR = "Pagador"
+!global $DESCRIPCION_PAGADOR = "Usuario que gestionar sus CxP."
+
+!global $TITULO_AGENTE_CUMPLO = "Agente Cumplo"
+!global $DESCRIPCION_AGENTE_CUMPLO = "Usuario interno de Cumplo."

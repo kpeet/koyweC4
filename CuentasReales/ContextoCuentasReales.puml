@@ -2,35 +2,34 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
+!include ../C4_Context.puml
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sistemas_externos_cumplo.puml
 
 LAYOUT_WITH_LEGEND()
 
 title Contexto de sistemas Módulo Cuentas Reales
 
-System( modulo_cuentas_reales, "Módulo Cuentas Reales", "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso.")
+System(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
 
-
-System_Ext(modulo_autenticacion, "Módulo Autenticación", "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas.")
-System_Ext(modulo_registro_actores, "Módulo Registro actores", "El contenedor de Actores (Empresa/Persona) y su perfil detallado.")
-System_Ext(modulo_cuentas_virtuales, "Módulo Cuentas Virtuales", "Gestión de cuentas virtuales, movimientos y saldos.")
-System_Ext(modulo_operaciones, "Ciclo de vida Operación", "Gestión de la operación y los procesos que giran en torno a la misma.")
-
-System_Ext(fintoc, "Fintoc", "API simple para hacer conciliación bancaria.")
-System_Ext(prometeo, "Prometeo", "API simple para hacer conciliación bancaria.")
-
+System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
+System_Ext(prometeo,$S_EXT_TITULO_PROMETEO , $S_EXT_DESCRIPCION_PROMETEO)
 
 
 'Relaciones sistema/módulos
-
-Rel(modulo_registro_actores, modulo_cuentas_reales, "Actor")
-Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, "Movimiento")
-Rel(modulo_operaciones, modulo_cuentas_reales, "Pago")
-Rel(modulo_autenticacion, modulo_cuentas_reales, "Acceso")
+Rel(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
+Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
+Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
+Rel_U(modulo_autenticacion, modulo_cuentas_reales, $MODELO_ACCESO)
 
 'Relaciones módulos/sistemas externos
-Rel_R( fintoc, modulo_cuentas_reales, "Transacción bancaria")
-Rel_R( prometeo, modulo_cuentas_reales, "Transacción bancaria")
-
+Rel_R( fintoc, modulo_cuentas_reales, $MODELO_TRANSACCION)
+Rel_R( prometeo, modulo_cuentas_reales, $MODELO_TRANSACCION)
 
 
 

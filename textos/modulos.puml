@@ -1,0 +1,30 @@
+'CUENTAS REALES
+!global $TITULO_CUENTAS_REALES = "Módulos Cuentas Reales"
+!global $DESCRIPCION_CUENTAS_REALES = "El vigía de pagos y generador de nóminas. Mantiene el registro de cuentas reales, movimientos y saldos, como vienen desde el mundo exterior y los transforma en transacciones de ingreso y egreso."
+
+
+'AUTENTICACION
+!global $TITULO_AUTENTICACION = "Módulo Autenticación"
+!global $DESCRIPCION_AUTENTICACION =  "Expone servicios para el consumo de sistemas externos a Cumplo y Verifica acceso según credenciales ingresadas, registra usuarios, cambia y resetea contraseñas."
+
+
+'REGISTRO DE ACTORES
+!global $TITULO_REGISTRO_ACTORES = "Módulo Registro actores"
+!global $DESCRIPCION_REGISTRO_ACTORES =  "El contenedor de Actores (Empresa/Persona) y su perfil detallado."
+
+'CUENTAS VIRTUALES
+!global $TITULO_CUENTAS_VIRTUALES= "Módulo Cuentas Virtuales"
+!global $DESCRIPCION_CUENTAS_VIRTUALES =  "Gestión de cuentas virtuales, movimientos y saldos."
+
+
+'CICLO VIDA OPERACION
+!global $TITULO_CICLO_VIDA_OPERACION = "Ciclo de vida Operación"
+!global $DESCRIPCION_CICLO_VIDA_OPERACION =   "Gestión de la operación y los procesos que giran en torno a la misma."
+
+'RESPALDOS
+!global $TITULO_RESPALDOS= "Módulo Respaldos y Facturas"
+!global $DESCRIPCION_RESPALDOS =   "El supervisor de información de respaldos."
+
+'AUTORIZACION
+!global $TITULO_AUTORIZACION= "Módulo Autorizacion"
+!global $DESCRIPCION_AUTORIZACION =   "PENDIENTE DESCRIPCION"
