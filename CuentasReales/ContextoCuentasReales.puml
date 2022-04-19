@@ -24,8 +24,8 @@ System_Ext(prometeo, "Prometeo", "API simple para hacer conciliación bancaria."
 
 Rel(modulo_registro_actores, modulo_cuentas_reales, "Actor")
 Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, "Movimiento")
-Rel(modulo_operaciones, modulo_cuentas_reales, "Pago")
-Rel(modulo_autenticacion, modulo_cuentas_reales, "Acceso")
+Rel_U(modulo_operaciones, modulo_cuentas_reales, "Pago")
+Rel_U(modulo_autenticacion, modulo_cuentas_reales, "Acceso")
 
 'Relaciones módulos/sistemas externos
 Rel_R( fintoc, modulo_cuentas_reales, "Transacción bancaria")
