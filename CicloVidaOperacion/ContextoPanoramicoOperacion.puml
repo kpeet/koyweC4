@@ -46,9 +46,9 @@ Rel_U(modulo_cuentas_virtuales, modulo_operaciones, "Cuentas Virtuales",)
  
 Rel(agente_cumplo, s_tesoreria, "https://treasury.cumplo.com",)
 Rel(solicitante, s_financiamiento, "https://financiamiento.cumplo.[cl, mx, pe]",)
-Rel(inversionista, s_inversionista, "https://treasury.cumplo.com",)
-Rel(pagador, s_cuentas_x_pagar, "https://treasury.cumplo.com",)
-Rel(agente_cumplo, s_administracion, "https://treasury.cumplo.com",)
+Rel(inversionista, s_inversionista, "https://XXX.cumplo.com",)
+Rel(pagador, s_cuentas_x_pagar, "https://XXX.cumplo.com",)
+Rel(agente_cumplo, s_administracion, "https://admin.cumplo.com",)
 
 
 
