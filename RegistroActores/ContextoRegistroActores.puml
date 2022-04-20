@@ -1,0 +1,33 @@
+@startuml ContextoCuentasReales
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../C4_Context.puml
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sistemas_externos_cumplo.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Contexto de sistemas Módulo Registro Actores
+
+System(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
+
+'Relaciones sistema/módulos
+Rel(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
+Rel(modulo_registro_actores,modulo_operaciones, $MODELO_ACTOR )
+Rel(modulo_autenticacion, modulo_registro_actores, $MODELO_ACCESO)
+Rel(modulo_cuentas_virtuales, modulo_registro_actores, $MODELO_CUENTA_VIRTUAL)
+
+'Rel(modulo_autorizacion, modulo_registro_actores, $MODELO_ACCESO)
+'Relaciones módulos/sistemas externos
+
+
+
+
+
+@enduml
