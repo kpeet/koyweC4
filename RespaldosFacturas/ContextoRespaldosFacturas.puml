@@ -1,0 +1,29 @@
+@startuml ContextoRespaldosFacturas
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sistemas_externos_cumplo.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Contexto de sistemas Módulo Respados y Facturas
+
+System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+
+System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
+System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+
+
+'Relaciones sistema/módulos
+
+
+'Relaciones módulos/sistemas externos
+
+
+@enduml
