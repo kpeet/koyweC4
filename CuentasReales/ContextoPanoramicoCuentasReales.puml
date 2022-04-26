@@ -22,7 +22,7 @@ Enterprise_Boundary(c0, "Cumplo" ) {
     System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
     System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
     System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
-    System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
+    'System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
 }
 System_Boundary(sistemas_externos, "Sistemas externos"){
     System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
@@ -36,7 +36,7 @@ System_Boundary(sistemas_externos, "Sistemas externos"){
 'Relaciones sistema/módulos
 Rel(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
 Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
-Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
+'Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
 Rel_U(modulo_autenticacion, modulo_cuentas_reales, $MODELO_ACCESO)
 
 

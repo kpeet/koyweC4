@@ -24,7 +24,7 @@ System_Ext(hubspot, "HubSpot??", "Hay algún modulo externo que hable con el cic
 
 Enterprise_Boundary(c0, "Cumplo") {
     System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-    System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+    'System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
     System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
     System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
     System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
@@ -46,7 +46,7 @@ Enterprise_Boundary(c0, "Cumplo") {
 Rel_U(modulo_autorizacion, modulo_operaciones, $MODELO_AUTORIZACION)
 Rel_U( modulo_autenticacion,modulo_operaciones, $MODELO_ACCESO )
 Rel_U(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
-Rel(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO )
+Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
 Rel_U(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
 Rel_U(modulo_cuentas_virtuales, modulo_operaciones, $MODELO_CUENTA_VIRTUAL)
 
