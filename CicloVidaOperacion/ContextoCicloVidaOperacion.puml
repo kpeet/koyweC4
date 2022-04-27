@@ -12,7 +12,6 @@ title Contexto de sistemas Módulo Ciclo de vida de la Operación
 
 System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
 
-System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
 System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
 System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
 System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
@@ -20,12 +19,13 @@ System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
 System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
 
 
-
 'Relaciones sistema/módulos
 
 Rel(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
-Rel(modulo_cuentas_virtuales, modulo_operaciones,$MODELO_CUENTA_VIRTUAL )
-Rel(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO )
+'Rel(modulo_cuentas_virtuales, modulo_operaciones,$MODELO_CUENTA_VIRTUAL )
+Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
+Rel( modulo_cuentas_virtuales,modulo_operaciones, $MODELO_MOVIMIENTO )
+
 Rel( modulo_autenticacion,modulo_operaciones, $MODELO_ACCESO )
 Rel( modulo_respaldo_facturas, modulo_operaciones,$MODELO_RESPALDO )
 Rel(modulo_autorizacion, modulo_operaciones,$MODELO_AUTORIZACION )

@@ -9,8 +9,8 @@
 
 
 'REGISTRO DE ACTORES
-!global $TITULO_REGISTRO_ACTORES = "Módulo Registro actores"
-!global $DESCRIPCION_REGISTRO_ACTORES =  "El contenedor de Actores (Empresa/Persona) y su perfil detallado."
+!global $TITULO_REGISTRO_ACTORES = "Módulo Registro de Participantes"
+!global $DESCRIPCION_REGISTRO_ACTORES =  "El contenedor de los Participantes(Empresa/Persona) y su perfil detallado."
 
 'CUENTAS VIRTUALES
 !global $TITULO_CUENTAS_VIRTUALES= "Módulo Cuentas Virtuales"
