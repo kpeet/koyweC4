@@ -1,0 +1,4 @@
+!global $PERIMETRO_CUMPLO= "Cumplo"
+!global $PERIMETRO_MODULOS= "Módulos"
+!global $PERIMETRO_SITIOS= "Sitios"
+!global $PERIMETRO_SISTEMAS_EXTERNOS="Sistemas externos"
