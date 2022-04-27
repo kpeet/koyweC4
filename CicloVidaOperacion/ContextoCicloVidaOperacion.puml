@@ -19,12 +19,13 @@ System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
 System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
 
 
-
 'Relaciones sistema/módulos
 
 Rel(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
-Rel(modulo_cuentas_virtuales, modulo_operaciones,$MODELO_CUENTA_VIRTUAL )
+'Rel(modulo_cuentas_virtuales, modulo_operaciones,$MODELO_CUENTA_VIRTUAL )
 Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
+Rel( modulo_cuentas_virtuales,modulo_operaciones, $MODELO_MOVIMIENTO )
+
 Rel( modulo_autenticacion,modulo_operaciones, $MODELO_ACCESO )
 Rel( modulo_respaldo_facturas, modulo_operaciones,$MODELO_RESPALDO )
 Rel(modulo_autorizacion, modulo_operaciones,$MODELO_AUTORIZACION )

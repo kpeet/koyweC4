@@ -8,6 +8,7 @@
 !include ../textos/sitios.puml
 !include ../textos/sistemas_externos_cumplo.puml
 !include ../textos/usuarios.puml
+!include ../textos/perimetros.puml
 
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
@@ -16,43 +17,54 @@ LAYOUT_WITH_LEGEND()
 title Diagrama Panorámico de sistema Módulo Cuentas Reales
 
 Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO, $DESCRIPCION_AGENTE_CUMPLO)
-Enterprise_Boundary(c0, "Cumplo" ) {
-    System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
-    System(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
-    System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-    System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
-    System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+Enterprise_Boundary(c0, $PERIMETRO_CUMPLO ) {
+    System_Boundary(sistemas_sitios, $PERIMETRO_SITIOS){
+        System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
+    }
+    System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
+        System(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+        System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+        System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
+    }
+    
     'System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
 }
-System_Boundary(sistemas_externos, "Sistemas externos"){
+System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
     System_Ext(prometeo,$S_EXT_TITULO_PROMETEO , $S_EXT_DESCRIPCION_PROMETEO)
 
 }
 
-
-
 'RELACIONES DE SISTEMA
-'Relaciones sistema/módulos
-Rel(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
-Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
-'Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
-Rel_U(modulo_autenticacion, modulo_cuentas_reales, $MODELO_ACCESO)
 
 
 'Relaciones usuarios/sitios
  
- Rel(agente_cumplo, s_tesoreria, $DOMINIO_SITIO_TESORERIA)
+ Rel_R(agente_cumplo, s_tesoreria, $DOMINIO_SITIO_TESORERIA)
 
 
 'Relaciones sitios/módulos
+Rel_D(s_tesoreria,modulo_cuentas_reales, "asocia depósitos y gestiona nóminas usando", "HTTPS")
 
-Rel(s_tesoreria,modulo_cuentas_reales, "asocia depositos y gestiona nóminas usando", "HTTPS")
+
+
+'Relaciones sistema/módulos
+Rel_R(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
+'Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
+Rel_U( modulo_cuentas_reales,modulo_cuentas_virtuales, "$MODELO_DEPOSITO y $MODELO_NOMINA")
+'Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
+Rel_U(modulo_autenticacion, modulo_cuentas_reales, $MODELO_ACCESO)
+
+
 
 
 'Relaciones módulos/sistemas externos
-Rel_R( fintoc, modulo_cuentas_reales, $MODELO_TRANSACCION)
+Rel_R(fintoc, modulo_cuentas_reales, $MODELO_TRANSACCION)
 Rel_R( prometeo, modulo_cuentas_reales, $MODELO_TRANSACCION)
 
+'declaraciones para distribución espacial
+Lay_D(fintoc, prometeo)
+Lay_D(sistemas_sitios, sistemas_modulos)
 
 @enduml
