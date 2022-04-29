@@ -8,47 +8,132 @@
 !include ../textos/sitios.puml
 !include ../textos/sistemas_externos_cumplo.puml
 !include ../textos/usuarios.puml
+!include ../textos/perimetros.puml
 
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Panorámico de sistema Módulo Respados y Facturas
+title Diagrama Panorámico de sistema Módulo Respaldos y Facturas
 Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
 Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
 Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
 Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
 
-System_Ext(hubspot, "HubSpot??", "Hay algún modulo externo que hable con el ciclo de vida, por ejemplo hubspot??.")
 
 
-Enterprise_Boundary(c0, "Cumplo") {
-    System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-    System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
-    System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-    System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
-    System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
-    System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
-    System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-
-    System_Ext(s_financiamiento,$TITULO_SITIO_FINANCIAMIENTO , $DESCRIPCION_SITIO_FINANCIAMIENTO )
-    System_Ext(s_inversionista,$TITULO_SITIO_INVERSIONISTA ,$DESCRIPCION_SITIO_INVERSIONISTA )
-    System_Ext(s_cuentas_x_pagar,$TITULO_SITIO_CXP ,$DESCRIPCION_SITIO_CXP )
-    System_Ext(s_administracion, $TITULO_SITIO_ADMINISTRACION,$DESCRIPCION_SITIO_ADMINISTRACION )
-    System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
+Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
+    System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
+        System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
+        System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+        System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+    }
+    
+    System_Boundary(sistemas_sitios, $PERIMETRO_SITIOS){
+        System_Ext(s_financiamiento,$TITULO_SITIO_FINANCIAMIENTO , $DESCRIPCION_SITIO_FINANCIAMIENTO )
+        System_Ext(s_inversionista,$TITULO_SITIO_INVERSIONISTA ,$DESCRIPCION_SITIO_INVERSIONISTA )
+        System_Ext(s_cuentas_x_pagar,$TITULO_SITIO_CXP ,$DESCRIPCION_SITIO_CXP )
+        System_Ext(s_administracion, $TITULO_SITIO_ADMINISTRACION,$DESCRIPCION_SITIO_ADMINISTRACION )
+        System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
+    }
 }
+
+System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
+    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
+    System_Ext(cavali, $S_EXT_TITULO_CAVALI,$S_EXT_DESCRIPCION_CAVALI )
+    System_Ext(clay, $S_EXT_TITULO_CLAY,$S_EXT_DESCRIPCION_CLAY )
+    System_Ext(abstrahere, $S_EXT_TITULO_ABSTRAHERE,$S_EXT_DESCRIPCION_ABSTRAHERE )
+    System_Ext(satws, $S_EXT_TITULO_SATWS,$S_EXT_DESCRIPCION_SATWS )
+    System_Ext(radian, $S_EXT_TITULO_RADIAN,$S_EXT_DESCRIPCION_RADIAN )
+    System_Ext(intiza, $S_EXT_TITULO_INTIZA,$S_EXT_DESCRIPCION_INTIZA )
+    System_Ext(fapro, $S_EXT_TITULO_FAPRO,$S_EXT_DESCRIPCION_FAPRO )
+    System_Ext(sat, $S_EXT_TITULO_SAT,$S_EXT_DESCRIPCION_SAT )
+    System_Ext(sii, $S_EXT_TITULO_SII,$S_EXT_DESCRIPCION_SII )
+    System_Ext(sunat, $S_EXT_TITULO_SUNAT,$S_EXT_DESCRIPCION_SUNAT )
+    System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
+}
+
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
+Rel_D(modulo_autorizacion, modulo_respaldo_facturas, $MODELO_AUTORIZACION)
+Rel_D( modulo_autenticacion,modulo_respaldo_facturas, $MODELO_ACCESO )
+Rel_D(modulo_registro_actores, modulo_respaldo_facturas, $MODELO_ACTOR)
+Rel_R(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
+
+
 
 
 'Relaciones usuarios/sitios
  
+Rel(agente_cumplo, s_tesoreria, $DOMINIO_SITIO_TESORERIA)
+Rel(solicitante, s_financiamiento,$DOMINIO_SITIO_FINANCIAMIENTO)
+Rel(inversionista, s_inversionista,$DOMINIO_SITIO_INVERSIONISTA)
+Rel(pagador, s_cuentas_x_pagar, $DOMINIO_SITIO_CXP)
+Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
+
+
 
 'Relaciones sitios/módulos
 
+Rel_Back(s_tesoreria,modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel_Back(s_administracion,modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel_Back(s_cuentas_x_pagar,modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel_Back(s_financiamiento,modulo_respaldo_facturas,$MODELO_RESPALDO  )
+Rel_Back(s_inversionista,modulo_respaldo_facturas, $MODELO_RESPALDO )
+
 
 'Relaciones módulos/sistemas externos
+Rel_U( modulo_respaldo_facturas,hubspot, $MODELO_RESPALDO )
+Rel_Back( modulo_respaldo_facturas,cavali, $MODELO_RESPALDO )
+Rel( clay,modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel( modulo_respaldo_facturas,abstrahere, $MODELO_RESPALDO )
+Rel(satws, modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel_Back( modulo_respaldo_facturas,radian, $MODELO_RESPALDO )
+Rel(fapro, modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel( modulo_respaldo_facturas,intiza, $MODELO_RESPALDO )
 
+'Relaciones sistemas externos/sistemas externos
+
+Rel_L( fapro, sii, "Se comunica con" )
+Rel_L( clay,sii, "Se comunica con"  )
+Rel_D( abstrahere,sii, "Se comunica con"  )
+Rel_L( satws,sat, "Se comunica con"  )
+Rel_L( cavali, sunat, "Se comunica con"  )
+Rel_L( radian, dian, "Se comunica con"  )
+
+
+
+'declaraciones para distribución espacial
+Lay_D(sistemas_sitios, sistemas_modulos)
+
+Lay_D(fapro, clay)
+'Lay_D(clay, abstrahere)
+Lay_D(abstrahere, satws)
+Lay_D(satws, cavali)
+Lay_D(cavali, radian)
+
+
+Lay_D(sii, sat)
+Lay_D(sat, sunat)
+Lay_D(sunat, dian)
+
+Lay_R(fapro, sii)
+Lay_R(clay, sii)
+Lay_R(abstrahere, sii)
+Lay_R(satws, sat)
+Lay_R(cavali, sunat)
+Lay_R(radian, dian)
+Lay_D(clay, fapro)
+
+Lay_U(fapro, hubspot)
+
+Lay_U(fapro, intiza)
+'Lay_U(hubspot, intiza)
+
+
+Lay_D(clay,satws)
 
 @enduml

@@ -1,4 +1,4 @@
-@startuml ContextoRegistroActores
+@startuml ContextoRegistroParticipantes
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
@@ -6,10 +6,11 @@
 !include ../textos/modulos.puml
 !include ../textos/modelos.puml
 !include ../textos/sistemas_externos_cumplo.puml
+!include ../textos/perimetros.puml
 
 LAYOUT_WITH_LEGEND()
 
-title Contexto de sistemas Módulo Registro Actores
+title Contexto de sistemas Módulo Registro de Participantes 
 
 System(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
 System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
