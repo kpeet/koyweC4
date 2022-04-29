@@ -4,5 +4,47 @@
 !global $S_EXT_TITULO_PROMETEO= "Prometeo"
 !global $S_EXT_DESCRIPCION_PROMETEO= "API simple para hacer conciliación bancaria."
 
+
 !global $S_EXT_TITULO_HUBSPOT= "HubSpot"
 !global $S_EXT_DESCRIPCION_HUBSPOT= "Gestón comercial de la operación"
+
+!global $S_EXT_TITULO_CAVALI= "Cavali"
+!global $S_EXT_DESCRIPCION_CAVALI= "facilita a sus Participantes (sociedades agentes de bolsa, bancos, empresas de factoring, etc.)el registro de facturas negociables electrónicas en Perú"
+
+!global $S_EXT_TITULO_CLAY= "Clay"
+!global $S_EXT_DESCRIPCION_CLAY= "Integrador de sistemas, información tributaria y emisiones de facturas en Chile"
+
+
+!global $S_EXT_TITULO_ABSTRAHERE= "Abstrahere"
+!global $S_EXT_DESCRIPCION_ABSTRAHERE= "Cesión de facturas, notificación de cesión, para Chile"
+
+!global $S_EXT_TITULO_SATWS= "SATWS"
+!global $S_EXT_DESCRIPCION_SATWS= "Web services para el SAT (servicio de impuestos de México)"
+
+
+!global $S_EXT_TITULO_RADIAN= "Radian"
+!global $S_EXT_DESCRIPCION_RADIAN= "Administra el registro, consulta y trazabilidad de las Facturas Electrónicas de Venta como Título Valor que circulan en el territorio nacional Colombiano, así como de los eventos que se asocian a las mismas"
+
+!global $S_EXT_TITULO_INTIZA= "Intiza"
+!global $S_EXT_DESCRIPCION_INTIZA= "Gestión de cobranza de Facturas"
+
+
+!global $S_EXT_TITULO_FAPRO= "Fapro"
+!global $S_EXT_DESCRIPCION_FAPRO= "Se conecta a SII y la TGR, y obtiene información de facturas y cesiones"
+
+'Organismos Tributarios
+
+
+!global $S_EXT_TITULO_SII= "SII"
+!global $S_EXT_DESCRIPCION_SII= "Organismo Tributario Chileno"
+
+!global $S_EXT_TITULO_SAT= "SAT"
+!global $S_EXT_DESCRIPCION_SAT= "Organismo Tributario Mexicano"
+
+!global $S_EXT_TITULO_SUNAT= "Sunat"
+!global $S_EXT_DESCRIPCION_SUNAT= "Organismo Tributario Peruano"
+
+
+!global $S_EXT_TITULO_DIAN= "DIAN"
+!global $S_EXT_DESCRIPCION_DIAN= "Organismo Tributario Colombiano"
+

@@ -4,8 +4,7 @@ java -jar plantuml.jar -charset UTF-8 file1 file2 file3
 
 Ver :https://plantuml.com/es/command-line
 
-Ejemplo: java -jar plantuml.jar -charset UTF-8 CuentasReales*/**.puml CicloVidaOperacion*/**.puml RegistroActores*/**.puml
-
+Ejemplo: java -jar plantuml.jar -charset UTF-8 CuentasReales*/**.puml CicloVidaOperacion*/**.puml RegistroParticipantes*/**.puml RespaldosFacturas*/**.puml
 
 # C4-PlantUML
 

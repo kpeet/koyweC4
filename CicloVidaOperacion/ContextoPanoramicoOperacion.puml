@@ -43,7 +43,7 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
 }
 
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(hubspot, "HubSpot", "Hay algún modulo externo que hable con el ciclo de vida, por ejemplo hubspot??.")
+    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
 }
 
 
