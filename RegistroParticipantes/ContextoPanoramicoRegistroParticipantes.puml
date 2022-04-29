@@ -1,8 +1,8 @@
-@startuml ContextoPanoramicoOperacion
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+@startuml ContextoPanoramicoRegistroParticipantes
+' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
-
+!include ../C4_Context.puml
 !include ../textos/modulos.puml
 !include ../textos/modelos.puml
 !include ../textos/sitios.puml
@@ -14,26 +14,23 @@
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Panorámico de sistema Módulo Ciclo de vida Operacion
+title Diagrama Panorámico de sistema Módulo Registro de Participantes
+
 Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
 Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
 Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
-Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
+Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO, $DESCRIPCION_AGENTE_CUMPLO)
 
-
-
-Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
+Enterprise_Boundary(c0, $PERIMETRO_CUMPLO ) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
-        System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-        'System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+        System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
+        System(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
-        System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
     }
-    
     System_Boundary(sistemas_sitios, $PERIMETRO_SITIOS){
+        System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
         System_Ext(s_financiamiento,$TITULO_SITIO_FINANCIAMIENTO , $DESCRIPCION_SITIO_FINANCIAMIENTO )
         System_Ext(s_inversionista,$TITULO_SITIO_INVERSIONISTA ,$DESCRIPCION_SITIO_INVERSIONISTA )
         System_Ext(s_cuentas_x_pagar,$TITULO_SITIO_CXP ,$DESCRIPCION_SITIO_CXP )
@@ -41,23 +38,18 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
         System_Ext(s_tesoreria, $TITULO_SITIO_TESORERIA,$DESCRIPCION_SITIO_TESORERIA )
     }
 }
-
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(hubspot, "HubSpot", "Hay algún modulo externo que hable con el ciclo de vida, por ejemplo hubspot??.")
+  
 }
+
 
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-Rel_U(modulo_autorizacion, modulo_operaciones, $MODELO_AUTORIZACION)
-Rel_U( modulo_autenticacion,modulo_operaciones, $MODELO_ACCESO )
-Rel_U(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
-Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
-Rel( modulo_cuentas_virtuales,modulo_operaciones, $MODELO_MOVIMIENTO )
-Rel_U(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
-Rel_U( modulo_operaciones,hubspot, $MODELO_OPERACION)
-'Rel_U(modulo_cuentas_virtuales, modulo_operaciones, $MODELO_CUENTA_VIRTUAL)
-
+Rel_L(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
+Rel_R(modulo_registro_actores,modulo_operaciones, $MODELO_ACTOR )
+Rel_U(modulo_autenticacion, modulo_registro_actores, $MODELO_ACCESO)
+Rel_U(modulo_cuentas_virtuales, modulo_registro_actores, $MODELO_CUENTA_VIRTUAL)
 
 'Relaciones usuarios/sitios
  
@@ -67,18 +59,18 @@ Rel(inversionista, s_inversionista,$DOMINIO_SITIO_INVERSIONISTA)
 Rel(pagador, s_cuentas_x_pagar, $DOMINIO_SITIO_CXP)
 Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
 
-
-
 'Relaciones sitios/módulos
 
-Rel_Back(s_tesoreria,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
-Rel_Back(s_administracion,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION, $MODELO_PAGO")
-Rel_Back(s_cuentas_x_pagar,modulo_operaciones, $MODELO_OPERACION)
-Rel_Back(s_financiamiento,modulo_operaciones,$MODELO_OPERACION )
-Rel_Back(s_inversionista,modulo_operaciones, "$MODELO_INVERSION, $MODELO_OPERACION")
+Rel_Back(s_financiamiento,modulo_registro_actores, $MODELO_ACTOR )
+Rel_Back(s_inversionista,modulo_registro_actores, $MODELO_ACTOR )
+Rel_Back(s_cuentas_x_pagar,modulo_registro_actores, $MODELO_ACTOR )
+Rel_Back(s_administracion,modulo_registro_actores, $MODELO_ACTOR )
+Rel_Back(s_tesoreria,modulo_registro_actores, $MODELO_ACTOR)
 
 
 'Relaciones módulos/sistemas externos
 
 
+'declaraciones para distribución espacial
+Lay_D(sistemas_sitios, sistemas_modulos)
 @enduml

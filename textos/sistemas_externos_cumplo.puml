@@ -3,3 +3,6 @@
 
 !global $S_EXT_TITULO_PROMETEO= "Prometeo"
 !global $S_EXT_DESCRIPCION_PROMETEO= "API simple para hacer conciliación bancaria."
+
+!global $S_EXT_TITULO_HUBSPOT= "HubSpot"
+!global $S_EXT_DESCRIPCION_HUBSPOT= "Gestón comercial de la operación"

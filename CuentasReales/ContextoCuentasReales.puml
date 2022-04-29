@@ -15,22 +15,29 @@ System(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALE
 System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
 System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
 System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
-System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
+'System_Ext(modulo_operaciones,$TITULO_CICLO_VIDA_OPERACION ,$DESCRIPCION_CICLO_VIDA_OPERACION)
 
-System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
-System_Ext(prometeo,$S_EXT_TITULO_PROMETEO , $S_EXT_DESCRIPCION_PROMETEO)
+System_Boundary(sistemas_externos, "Sistemas externos"){
+    System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
+    System_Ext(prometeo,$S_EXT_TITULO_PROMETEO , $S_EXT_DESCRIPCION_PROMETEO)
+}
+
 
 
 'Relaciones sistema/módulos
-Rel(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
-Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
-Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
+Rel_R(modulo_registro_actores, modulo_cuentas_reales, $MODELO_ACTOR)
+'Rel(modulo_cuentas_virtuales, modulo_cuentas_reales, $MODELO_MOVIMIENTO)
+Rel_U( modulo_cuentas_reales,modulo_cuentas_virtuales, "$MODELO_DEPOSITO y $MODELO_NOMINA")
+'Rel_U(modulo_operaciones, modulo_cuentas_reales, $MODELO_PAGO)
 Rel_U(modulo_autenticacion, modulo_cuentas_reales, $MODELO_ACCESO)
 
 'Relaciones módulos/sistemas externos
 Rel_R( fintoc, modulo_cuentas_reales, $MODELO_TRANSACCION)
 Rel_R( prometeo, modulo_cuentas_reales, $MODELO_TRANSACCION)
 
+
+'declaraciones para distribución espacial
+Lay_D(fintoc, prometeo)
 
 
 @enduml
