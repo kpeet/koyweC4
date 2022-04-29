@@ -1,4 +1,4 @@
-@startuml ContextoPanoramicoRespaldosFacturas
+@startuml ContextoPanoramicoOperacion
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
@@ -14,7 +14,7 @@
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Panorámico de sistema Módulo Respaldos y Facturas
+title Diagrama Panorámico de sistema Módulo Ciclo de vida Operacion
 Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
 Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
 Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
@@ -24,11 +24,12 @@ Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
 
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
-        System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+        System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+        'System_Ext(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
         System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
         System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
-        System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
+        System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
         System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
     }
     
@@ -55,6 +56,7 @@ Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
 Rel( modulo_cuentas_virtuales,modulo_operaciones, $MODELO_MOVIMIENTO )
 Rel_U(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
 Rel_U( modulo_operaciones,hubspot, $MODELO_OPERACION)
+'Rel_U(modulo_cuentas_virtuales, modulo_operaciones, $MODELO_CUENTA_VIRTUAL)
 
 
 'Relaciones usuarios/sitios
