@@ -5,6 +5,8 @@
 !include ../textos/modulos.puml
 !include ../textos/modelos.puml
 !include ../textos/sistemas_externos_cumplo.puml
+!include ../textos/sistemas_externos_cumplo.puml
+!include ../textos/perimetros.puml
 
 LAYOUT_WITH_LEGEND()
 
@@ -17,12 +19,13 @@ System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGIST
 System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
 System_Ext(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
 System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
-
+System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
+    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
+}
 
 'Relaciones sistema/módulos
 
 Rel(modulo_registro_actores, modulo_operaciones, $MODELO_ACTOR)
-'Rel(modulo_cuentas_virtuales, modulo_operaciones,$MODELO_CUENTA_VIRTUAL )
 Rel(modulo_operaciones, modulo_cuentas_virtuales, $MODELO_PAGO )
 Rel( modulo_cuentas_virtuales,modulo_operaciones, $MODELO_MOVIMIENTO )
 
@@ -32,5 +35,6 @@ Rel(modulo_autorizacion, modulo_operaciones,$MODELO_AUTORIZACION )
 
 'Relaciones módulos/sistemas externos
 
+Rel_U( modulo_operaciones,hubspot, $MODELO_OPERACION)
 
 @enduml
