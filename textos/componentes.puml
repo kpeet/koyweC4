@@ -1,0 +1,28 @@
+'Componentes RESPALDOS Y FACTURAS
+'API CUMPLO
+!global $COMPONENTE_API_CUMPLO = "Componente API Cumplo"
+!global $COMPONENTE_API_CUMPLO_DESCRIP =  "Servicios Expuestos como API REST que hablan en idioma Cumplo"
+!global $COMPONENTE_API_CUMPLO_TEC =   "Django RestFramework View"
+
+'Autenticacion
+!global $COMPONENTE_AUTENTICACION = "Componente Autenticación"
+!global $COMPONENTE_AUTENTICACION_DESCRIP =  "Autentica las solucitudes de usuarios"
+!global $COMPONENTE_AUTENTICACION_TEC =   "Python abstract class"
+
+'Autentorizacion
+!global $COMPONENTE_AUTORIZACION = "Componente Autorización"
+!global $COMPONENTE_AUTORIZACION_DESCRIP =  "Valida permisos de usuarios"
+!global $COMPONENTE_AUTORIZACION_TEC =   "Python abstract class"
+
+
+
+'COMPONENTE FACTURA
+!global $COMPONENTE_FACTURA = "Clase Factura"
+!global $COMPONENTE_FACTURA_DESCRIP =  "almacena facturas, sus cesiones, pagos, indica si es real y confirmada"
+!global $COMPONENTE_FACTURA_TEC =   "Django ORM"
+
+
+'COMPONENTE Extraccion
+!global $COMPONENTE_EXTRACCION = "Componente Extracción"
+!global $COMPONENTE_EXTRACCION_DESCRIP =  "Extrae facturas desde sistemas externos y los almacena"
+!global $COMPONENTE_EXTRACCION_TEC =   "Python abstract class"
