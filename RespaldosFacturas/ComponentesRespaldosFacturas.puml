@@ -35,7 +35,6 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
                 Component(componente_notificacion, $COMPONENTE_NOTIFICACION, $COMPONENTE_NOTIFICACION_TEC,$COMPONENTE_NOTIFICACION_DESCRIP )
                 Component(componente_log, $COMPONENTE_LOGS, $COMPONENTE_LOGS_TEC,$COMPONENTE_LOGS_DESCRIP )
                 Component(componente_error_sistema, $COMPONENTE_ERROR_SISTEMA, $COMPONENTE_ERROR_SISTEMA_TEC,$COMPONENTE_ERROR_SISTEMA_DESCRIP )
-
             }
             ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "BD, lee y escribe todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
         }
@@ -56,7 +55,15 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(sii, $S_EXT_TITULO_SII,$S_EXT_DESCRIPCION_SII )
     System_Ext(sunat, $S_EXT_TITULO_SUNAT,$S_EXT_DESCRIPCION_SUNAT )
     System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
+
 }
+System_Boundary(sistemas_externos_aws, $PERIMETRO_SISTEMAS_EXTERNOS){
+
+ System_Ext(sist_aws, "AWS","Amazon web services" )
+ System_Ext(sist_sentry, "Sentry","Servicio de gestión de Errores de sistemas" )
+
+ }
+
 
 
 'RELACIONES DE SISTEMA
@@ -74,7 +81,7 @@ Rel_L(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_A
 BiRel_U(componente_cobranza,componente_factura, "$MODELO_RESPALDO")
 BiRel_U(componente_cesion,componente_factura, "Cede y es notificado de cesion de $MODELO_RESPALDO")
 Rel_U(componente_api_factura,componente_notificacion, $MODELO_RESPALDO)
-Rel_U(componente_api_factura,componente_error_sistema, Error)
+Rel_U(componente_api_factura,componente_error_sistema, Exception)
 Rel_U(componente_api_factura,componente_log, Logs)
 
 
@@ -87,6 +94,9 @@ Rel(componente_extraccion,satws, "extrae $MODELO_RESPALDO",HTTPS)
 Rel(componente_extraccion,clay,  "extrae $MODELO_RESPALDO" ,HTTPS)
 Rel(componente_extraccion,fapro, "extrae $MODELO_RESPALDO",HTTPS ,$tags="pendiente")
 
+Rel_U(componente_notificacion,sist_aws, $MODELO_RESPALDO,Botocode ,$tags="pendiente")
+Rel_U(componente_log,sist_aws, "Logs" ,$tags="pendiente", Botocode)
+Rel_U(componente_error_sistema,sist_sentry, Exception ,$tags="pendiente")
 
 
 
@@ -113,6 +123,7 @@ Rel( radian, dian, "Se comunica con"  )
 
 'declaraciones para distribución espacial
 Lay_D(sistemas_modulos,sistemas_externos )
+Lay_U(sistemas_modulos,sist_aws )
 
 
 @enduml
