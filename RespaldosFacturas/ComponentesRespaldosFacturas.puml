@@ -30,13 +30,13 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
                 Component(componente_api_factura, $COMPONENTE_API_CUMPLO, $COMPONENTE_API_CUMPLO_TEC, $COMPONENTE_API_CUMPLO_DESCRIP)
                 Component(componente_factura, $COMPONENTE_FACTURA, $COMPONENTE_FACTURA_TEC, $COMPONENTE_FACTURA_DESCRIP)
                 Component(componente_extraccion, $COMPONENTE_EXTRACCION, $COMPONENTE_EXTRACCION_TEC, $COMPONENTE_EXTRACCION_DESCRIP)
-                Component(componente_pago_facturas, "Servicio de Pago de Facturas", "Python", "Registra el pago de facturas y notifica del mismo")
-                Component(componente_cesion, "Servicio de Cesión", "Python", "cede facturas y registra cesión")
+                Component(componente_cobranza, $COMPONENTE_COBRANZA, $COMPONENTE_COBRANZA_TEC,$COMPONENTE_COBRANZA_DESCRIP)
+                Component(componente_cesion, $COMPONENTE_CESION, $COMPONENTE_CESION_TEC,$COMPONENTE_CESION_DESCRIP )
             }
-            ContainerDb(base_datos_respaldo_facturas,"Respaldos y facturas DB" ,"MySql", "lee y escribe")
+            ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "BD, lee y escribe todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
         }
-        Container_Ext(modulo_autenticacion, "API $TITULO_AUTENTICACION" ,"Django RestFramework", $DESCRIPCION_AUTENTICACION)
-        Container_Ext(modulo_autorizacion,$TITULO_AUTORIZACION ,"Dependencia Casbin", $DESCRIPCION_AUTORIZACION)
+        Container_Ext(modulo_autenticacion, $TITULO_AUTENTICACION ,"Django RestFramework", $DESCRIPCION_AUTENTICACION)
+        Container_Ext(modulo_autorizacion,$TITULO_AUTORIZACION ,"Dependencia Python", $DESCRIPCION_AUTORIZACION)
     }
 }
 
@@ -58,8 +58,8 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 
 'RELACIONES DE SISTEMA
 'Relaciones contenedores/componenetes
-Rel_U(componente_autorizacion,modulo_autorizacion, "obtiene $MODELO_AUTORIZACION")
-Rel_U(componente_autenticacion, modulo_autenticacion, "autentica $MODELO_ACCESO" )
+Rel_U(componente_autorizacion,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
+Rel_U(componente_autenticacion, modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
 Rel_U(componente_factura,base_datos_respaldo_facturas,"lee y escribe")
 
 
@@ -67,20 +67,20 @@ Rel_U(componente_factura,base_datos_respaldo_facturas,"lee y escribe")
 BiRel_U(componente_factura,componente_api_factura, $MODELO_RESPALDO)
 Rel_U(componente_extraccion,componente_factura, $MODELO_RESPALDO)
 Rel_R(componente_api_factura,componente_autenticacion, $MODELO_ACCESO)
-Rel_L(componente_api_factura,componente_autorizacion, $MODELO_ACCESO)
-BiRel_U(componente_pago_facturas,componente_factura, "$MODELO_RESPALDO")
+Rel_L(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_ACCION")
+BiRel_U(componente_cobranza,componente_factura, "$MODELO_RESPALDO")
 BiRel_U(componente_cesion,componente_factura, "Cede y es notificado de cesion de $MODELO_RESPALDO")
 
 
 'Relaciones componenetes/sistemas externos
-Rel( componente_pago_facturas,intiza, "gestiona cobranza de $MODELO_RESPALDO",$tags="pendiente" )
+Rel( componente_cobranza,intiza, "$MODELO_RESPALDO, Deudores,Pagos ",FTPS,$tags="pendiente" )
 Rel( componente_factura,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
-Rel( componente_cesion,cavali, "cede $MODELO_RESPALDO" )
-Rel( componente_cesion,abstrahere, "cede $MODELO_RESPALDO"  )
-Rel(componente_extraccion,radian, "extrae $MODELO_RESPALDO",$tags="pendiente")
-Rel(componente_extraccion,satws, "extrae $MODELO_RESPALDO" )
-Rel(componente_extraccion,clay,  "extrae $MODELO_RESPALDO"  )
-Rel(componente_extraccion,fapro, "extrae $MODELO_RESPALDO" ,$tags="pendiente")
+Rel( componente_cesion,cavali, "cede $MODELO_RESPALDO",HTTPS )
+BiRel( componente_cesion,abstrahere, "solicita y es notificado de cesión de $MODELO_RESPALDO", HTTPS  )
+Rel(componente_extraccion,radian, "extrae $MODELO_RESPALDO",HTTPS, $tags="pendiente")
+Rel(componente_extraccion,satws, "extrae $MODELO_RESPALDO",HTTPS)
+Rel(componente_extraccion,clay,  "extrae $MODELO_RESPALDO" ,HTTPS)
+Rel(componente_extraccion,fapro, "extrae $MODELO_RESPALDO",HTTPS ,$tags="pendiente")
 
 
 

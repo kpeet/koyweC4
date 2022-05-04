@@ -26,3 +26,16 @@
 !global $COMPONENTE_EXTRACCION = "Componente Extracción"
 !global $COMPONENTE_EXTRACCION_DESCRIP =  "Extrae facturas desde sistemas externos y los almacena"
 !global $COMPONENTE_EXTRACCION_TEC =   "Python abstract class"
+
+
+
+'COMPONENTE COBRANZA
+!global $COMPONENTE_COBRANZA = "Componente Cobranza"
+!global $COMPONENTE_COBRANZA_DESCRIP =  "Interfaz para gestionar cobranza de facturas"
+!global $COMPONENTE_COBRANZA_TEC =   "Python abstract class"
+
+
+'COMPONENTE CESION
+!global $COMPONENTE_CESION = "Componente Cesión"
+!global $COMPONENTE_CESION_DESCRIP =  "cede facturas y registra cesión"
+!global $COMPONENTE_CESION_TEC =   "Python abstract class"

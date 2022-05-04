@@ -27,4 +27,4 @@
 
 'AUTORIZACION
 !global $TITULO_AUTORIZACION= "Módulo Autorizacion"
-!global $DESCRIPCION_AUTORIZACION =   "PENDIENTE DESCRIPCION"
+!global $DESCRIPCION_AUTORIZACION =   "indica quién puede y no puede realizar  acciones en los sistemas de cumplo."

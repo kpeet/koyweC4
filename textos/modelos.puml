@@ -11,3 +11,4 @@
 !global $MODELO_INVERSION="Inversión"
 !global $MODELO_NOMINA="Nómina"
 !global $MODELO_DEPOSITO="Depósito"
+!global $MODELO_ACCION = "Acción"
