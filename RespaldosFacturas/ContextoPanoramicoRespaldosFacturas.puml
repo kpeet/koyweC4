@@ -25,12 +25,12 @@ Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-        System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-        System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
-        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        'System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+        'System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        'System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
+        'System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
     }
-    
+
     System_Boundary(sistemas_sitios, $PERIMETRO_SITIOS){
         System_Ext(s_financiamiento,$TITULO_SITIO_FINANCIAMIENTO , $DESCRIPCION_SITIO_FINANCIAMIENTO )
         System_Ext(s_inversionista,$TITULO_SITIO_INVERSIONISTA ,$DESCRIPCION_SITIO_INVERSIONISTA )
@@ -58,16 +58,16 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-Rel_D(modulo_autorizacion, modulo_respaldo_facturas, $MODELO_AUTORIZACION)
-Rel_D( modulo_autenticacion,modulo_respaldo_facturas, $MODELO_ACCESO )
-Rel_D(modulo_registro_actores, modulo_respaldo_facturas, $MODELO_ACTOR)
-Rel_R(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
+'Rel_D(modulo_autorizacion, modulo_respaldo_facturas, $MODELO_AUTORIZACION)
+'Rel_D( modulo_autenticacion,modulo_respaldo_facturas, $MODELO_ACCESO )
+'Rel_D(modulo_registro_actores, modulo_respaldo_facturas, $MODELO_ACTOR)
+'Rel_R(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
 
 
 
 
 'Relaciones usuarios/sitios
- 
+
 Rel(agente_cumplo, s_tesoreria, $DOMINIO_SITIO_TESORERIA)
 Rel(solicitante, s_financiamiento,$DOMINIO_SITIO_FINANCIAMIENTO)
 Rel(inversionista, s_inversionista,$DOMINIO_SITIO_INVERSIONISTA)
@@ -78,62 +78,45 @@ Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
 
 'Relaciones sitios/módulos
 
-Rel_Back(s_tesoreria,modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel_Back(s_administracion,modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel_Back(s_cuentas_x_pagar,modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel_Back(s_financiamiento,modulo_respaldo_facturas,$MODELO_RESPALDO  )
-Rel_Back(s_inversionista,modulo_respaldo_facturas, $MODELO_RESPALDO )
+Rel(s_tesoreria,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
+Rel(s_administracion,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
+Rel(s_cuentas_x_pagar,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
+Rel(s_financiamiento,modulo_respaldo_facturas,"obtiene $MODELO_RESPALDO"  )
+Rel(s_inversionista,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
 
 
 'Relaciones módulos/sistemas externos
-Rel_U( modulo_respaldo_facturas,hubspot, $MODELO_RESPALDO )
-Rel_Back( modulo_respaldo_facturas,cavali, $MODELO_RESPALDO )
-Rel( clay,modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel( modulo_respaldo_facturas,abstrahere, $MODELO_RESPALDO )
-Rel(satws, modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel_Back( modulo_respaldo_facturas,radian, $MODELO_RESPALDO )
-Rel(fapro, modulo_respaldo_facturas, $MODELO_RESPALDO )
-Rel( modulo_respaldo_facturas,intiza, $MODELO_RESPALDO )
+Rel( modulo_respaldo_facturas,intiza, "gestiona cobranza de $MODELO_RESPALDO",$tags="pendiente" )
+Rel( modulo_respaldo_facturas,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
+Rel( modulo_respaldo_facturas,cavali, "cede $MODELO_RESPALDO" )
+Rel( modulo_respaldo_facturas,abstrahere, "cede $MODELO_RESPALDO"  )
+Rel( modulo_respaldo_facturas,radian, "extrae $MODELO_RESPALDO",$tags="pendiente")
+Rel( modulo_respaldo_facturas,satws, "extrae $MODELO_RESPALDO" )
+Rel( modulo_respaldo_facturas,clay, "extrae $MODELO_RESPALDO" )
+Rel( modulo_respaldo_facturas,fapro, "extrae $MODELO_RESPALDO" ,$tags="pendiente")
+
+Lay_R(radian,cavali )
+Lay_L(clay,fapro )
+
+
 
 'Relaciones sistemas externos/sistemas externos
 
-Rel_L( fapro, sii, "Se comunica con" )
-Rel_L( clay,sii, "Se comunica con"  )
-Rel_D( abstrahere,sii, "Se comunica con"  )
-Rel_L( satws,sat, "Se comunica con"  )
-Rel_L( cavali, sunat, "Se comunica con"  )
-Rel_L( radian, dian, "Se comunica con"  )
+Rel( fapro, sii, "Se comunica con" )
+Rel( clay,sii, "Se comunica con"  )
+Rel( abstrahere,sii, "Se comunica con"  )
+Rel( satws,sat, "Se comunica con"  )
+Rel( cavali, sunat, "Se comunica con"  )
+Rel( radian, dian, "Se comunica con"  )
 
 
 
 'declaraciones para distribución espacial
 Lay_D(sistemas_sitios, sistemas_modulos)
-
-Lay_D(fapro, clay)
-'Lay_D(clay, abstrahere)
-Lay_D(abstrahere, satws)
-Lay_D(satws, cavali)
-Lay_D(cavali, radian)
+Lay_D(sistemas_modulos,sistemas_externos )
 
 
-Lay_D(sii, sat)
-Lay_D(sat, sunat)
-Lay_D(sunat, dian)
-
-Lay_R(fapro, sii)
-Lay_R(clay, sii)
-Lay_R(abstrahere, sii)
-Lay_R(satws, sat)
-Lay_R(cavali, sunat)
-Lay_R(radian, dian)
-Lay_D(clay, fapro)
-
-Lay_U(fapro, hubspot)
-
-Lay_U(fapro, intiza)
-'Lay_U(hubspot, intiza)
 
 
-Lay_D(clay,satws)
 
 @enduml
