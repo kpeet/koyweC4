@@ -20,15 +20,13 @@ title Diagrama Contexto de sistema Módulo Respaldos y Facturas
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-        'System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-        'System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        'System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
-        'System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+
     }
 }
 
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
     System_Ext(cavali, $S_EXT_TITULO_CAVALI,$S_EXT_DESCRIPCION_CAVALI )
     System_Ext(clay, $S_EXT_TITULO_CLAY,$S_EXT_DESCRIPCION_CLAY )
     System_Ext(abstrahere, $S_EXT_TITULO_ABSTRAHERE,$S_EXT_DESCRIPCION_ABSTRAHERE )
@@ -42,35 +40,28 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
 }
 System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
-
- System_Ext(sist_aws, "AWS","Amazon web services" )
- System_Ext(sist_sentry, "Sentry","Servicio de gestión de Errores de sistemas" )
-
+ System_Ext(sist_externo_logs, "AWS Cloudwatch","Amazon web services" )
+ System_Ext(sist_externo_notificacion, "AWS SNS","Amazon web services" )
+ System_Ext(sist_externo_errores, "Sentry","Servicio de gestión de Errores de sistemas" )
  }
 
-
-'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-'Rel_D(modulo_autorizacion, modulo_respaldo_facturas, $MODELO_AUTORIZACION)
-'Rel_D( modulo_autenticacion,modulo_respaldo_facturas, $MODELO_ACCESO )
-'Rel_D(modulo_registro_actores, modulo_respaldo_facturas, $MODELO_ACTOR)
-'Rel_R(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
-
-
-
-
+Rel_R(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
+Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
 
 
 
 'Relaciones módulos/sistemas externos
 Rel( modulo_respaldo_facturas,intiza, "gestiona cobranza de $MODELO_RESPALDO",$tags="pendiente" )
-Rel( modulo_respaldo_facturas,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
 Rel( modulo_respaldo_facturas,cavali, "cede $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,abstrahere, "cede $MODELO_RESPALDO"  )
 Rel( modulo_respaldo_facturas,radian, "extrae $MODELO_RESPALDO",$tags="pendiente")
 Rel( modulo_respaldo_facturas,satws, "extrae $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,clay, "extrae $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,fapro, "extrae $MODELO_RESPALDO" ,$tags="pendiente")
+Rel( modulo_respaldo_facturas,sist_externo_errores, "gestiona errores de sistema" ,$tags="pendiente")
+Rel( modulo_respaldo_facturas,sist_externo_notificacion, "notifica cambios en facturas" ,$tags="pendiente")
+Rel( modulo_respaldo_facturas,sist_externo_logs, "registra logs de operaciones del sistemas" ,$tags="pendiente")
 
 Lay_R(radian,cavali )
 Lay_L(clay,fapro )
@@ -90,6 +81,7 @@ Rel( radian, dian, "Se comunica con"  )
 
 'declaraciones para distribución espacial
 Lay_D(sistemas_modulos,sistemas_externos )
+Lay_D(sistemas_externos, sistemas_externos_2 )
 
 
 
