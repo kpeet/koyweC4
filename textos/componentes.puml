@@ -39,3 +39,20 @@
 !global $COMPONENTE_CESION = "Componente Cesión"
 !global $COMPONENTE_CESION_DESCRIP =  "cede facturas y registra cesión"
 !global $COMPONENTE_CESION_TEC =   "Python abstract class"
+
+
+'COMPONENTE NOTIFICACION
+!global $COMPONENTE_NOTIFICACION = "Gestionador de notificaciones"
+!global $COMPONENTE_NOTIFICACION_DESCRIP =  "Notifica de creación y actualizacion en la información de facturas"
+!global $COMPONENTE_NOTIFICACION_TEC =   "Dependencia SNS, Botocode, de AWS"
+
+
+'COMPONENTE LOGS
+!global $COMPONENTE_LOGS = "Gestionador de logs de sistema"
+!global $COMPONENTE_LOGS_DESCRIP =  "registra las acciones más importantes del módulo"
+!global $COMPONENTE_LOGS_TEC =   "Dependencia WatchTower, Botocode, de AWS"
+
+'COMPONENTE ERROR
+!global $COMPONENTE_ERROR_SISTEMA = "Gestionador de errores de sistema"
+!global $COMPONENTE_ERROR_SISTEMA_DESCRIP =  "notifica de errores de sistema"
+!global $COMPONENTE_ERROR_SISTEMA_TEC =   "Dependencia Sentry"

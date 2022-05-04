@@ -32,6 +32,10 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
                 Component(componente_extraccion, $COMPONENTE_EXTRACCION, $COMPONENTE_EXTRACCION_TEC, $COMPONENTE_EXTRACCION_DESCRIP)
                 Component(componente_cobranza, $COMPONENTE_COBRANZA, $COMPONENTE_COBRANZA_TEC,$COMPONENTE_COBRANZA_DESCRIP)
                 Component(componente_cesion, $COMPONENTE_CESION, $COMPONENTE_CESION_TEC,$COMPONENTE_CESION_DESCRIP )
+                Component(componente_notificacion, $COMPONENTE_NOTIFICACION, $COMPONENTE_NOTIFICACION_TEC,$COMPONENTE_NOTIFICACION_DESCRIP )
+                Component(componente_log, $COMPONENTE_LOGS, $COMPONENTE_LOGS_TEC,$COMPONENTE_LOGS_DESCRIP )
+                Component(componente_error_sistema, $COMPONENTE_ERROR_SISTEMA, $COMPONENTE_ERROR_SISTEMA_TEC,$COMPONENTE_ERROR_SISTEMA_DESCRIP )
+
             }
             ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "BD, lee y escribe todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
         }
@@ -41,7 +45,6 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
 }
 
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
     System_Ext(cavali, $S_EXT_TITULO_CAVALI,$S_EXT_DESCRIPCION_CAVALI )
     System_Ext(clay, $S_EXT_TITULO_CLAY,$S_EXT_DESCRIPCION_CLAY )
     System_Ext(abstrahere, $S_EXT_TITULO_ABSTRAHERE,$S_EXT_DESCRIPCION_ABSTRAHERE )
@@ -70,11 +73,13 @@ Rel_R(componente_api_factura,componente_autenticacion, $MODELO_ACCESO)
 Rel_L(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_ACCION")
 BiRel_U(componente_cobranza,componente_factura, "$MODELO_RESPALDO")
 BiRel_U(componente_cesion,componente_factura, "Cede y es notificado de cesion de $MODELO_RESPALDO")
+Rel_U(componente_api_factura,componente_notificacion, $MODELO_RESPALDO)
+Rel_U(componente_api_factura,componente_error_sistema, Error)
+Rel_U(componente_api_factura,componente_log, Logs)
 
 
 'Relaciones componenetes/sistemas externos
 Rel( componente_cobranza,intiza, "$MODELO_RESPALDO, Deudores,Pagos ",FTPS,$tags="pendiente" )
-Rel( componente_factura,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
 Rel( componente_cesion,cavali, "cede $MODELO_RESPALDO",HTTPS )
 BiRel( componente_cesion,abstrahere, "solicita y es notificado de cesión de $MODELO_RESPALDO", HTTPS  )
 Rel(componente_extraccion,radian, "extrae $MODELO_RESPALDO",HTTPS, $tags="pendiente")
