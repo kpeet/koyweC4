@@ -15,7 +15,7 @@
 
 AddRelTag("pendiente", $textColor="red", $lineColor="red", $lineStyle = DashedLine())
 AddElementTag("pendiente", $fontColor="red")
-AddRelTag("en_proceso", $textColor="yellow", $lineColor="yellow", $lineStyle = DashedLine())
+AddRelTag("en_proceso", $textColor="yellow", $lineColor="orange", $lineStyle = DashedLine())
 AddElementTag("en_proceso", $fontColor="yellow")
 
 LAYOUT_WITH_LEGEND()
