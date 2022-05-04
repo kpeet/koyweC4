@@ -25,8 +25,10 @@ Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO,$DESCRIPCION_AGENTE_CUMPLO)
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-        'System_Ext(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-        'System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        'System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
+        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+
         'System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         'System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
     }
@@ -40,8 +42,9 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     }
 }
 
+
+
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
     System_Ext(cavali, $S_EXT_TITULO_CAVALI,$S_EXT_DESCRIPCION_CAVALI )
     System_Ext(clay, $S_EXT_TITULO_CLAY,$S_EXT_DESCRIPCION_CLAY )
     System_Ext(abstrahere, $S_EXT_TITULO_ABSTRAHERE,$S_EXT_DESCRIPCION_ABSTRAHERE )
@@ -55,16 +58,18 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
 }
 
+System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
+ System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
+ System_Ext(sist_externo_logs, "AWS Cloudwatch","Amazon web services" )
+ System_Ext(sist_externo_notificacion, "AWS SNS","Amazon web services" )
+ System_Ext(sist_externo_errores, "Sentry","Servicio de gestión de Errores de sistemas" )
+ }
+
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-'Rel_D(modulo_autorizacion, modulo_respaldo_facturas, $MODELO_AUTORIZACION)
-'Rel_D( modulo_autenticacion,modulo_respaldo_facturas, $MODELO_ACCESO )
-'Rel_D(modulo_registro_actores, modulo_respaldo_facturas, $MODELO_ACTOR)
-'Rel_R(modulo_respaldo_facturas, modulo_operaciones, $MODELO_RESPALDO)
-
-
-
+Rel_R(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
+Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
 
 'Relaciones usuarios/sitios
 
@@ -80,20 +85,24 @@ Rel(agente_cumplo, s_administracion,$DOMINIO_SITIO_ADMINISTRACION)
 
 Rel(s_tesoreria,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
 Rel(s_administracion,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
-Rel(s_cuentas_x_pagar,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
+Rel(s_cuentas_x_pagar,modulo_respaldo_facturas, "obtiene y registra $MODELO_RESPALDO" )
 Rel(s_financiamiento,modulo_respaldo_facturas,"obtiene $MODELO_RESPALDO"  )
 Rel(s_inversionista,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
 
 
 'Relaciones módulos/sistemas externos
 Rel( modulo_respaldo_facturas,intiza, "gestiona cobranza de $MODELO_RESPALDO",$tags="pendiente" )
-Rel( modulo_respaldo_facturas,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
+Rel( sist_externo_notificacion,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
 Rel( modulo_respaldo_facturas,cavali, "cede $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,abstrahere, "cede $MODELO_RESPALDO"  )
 Rel( modulo_respaldo_facturas,radian, "extrae $MODELO_RESPALDO",$tags="pendiente")
 Rel( modulo_respaldo_facturas,satws, "extrae $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,clay, "extrae $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,fapro, "extrae $MODELO_RESPALDO" ,$tags="pendiente")
+
+Rel( modulo_respaldo_facturas,sist_externo_errores, "gestiona errores de sistema" ,$tags="pendiente")
+Rel( modulo_respaldo_facturas,sist_externo_notificacion, "notifica cambios en facturas" ,$tags="pendiente")
+Rel( modulo_respaldo_facturas,sist_externo_logs, "registra logs de operaciones del sistemas" ,$tags="pendiente")
 
 Lay_R(radian,cavali )
 Lay_L(clay,fapro )
