@@ -1,0 +1,132 @@
+@startuml ComponentesRespaldosFacturas
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sitios.puml
+!include ../textos/sistemas_externos_cumplo.puml
+!include ../textos/usuarios.puml
+!include ../textos/perimetros.puml
+!include ../textos/componentes.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+
+'AddRelTag("pendiente", $textColor="red", $lineColor="red", $lineStyle = DashedLine())
+'AddRelTag("en_proceso", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+
+LAYOUT_WITH_LEGEND()
+
+title Diagrama Componentes, Módulo Respaldos y Facturas, Cumplo Mañana, v1.0.2
+
+Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
+    System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
+        System_Boundary(modulo_respaldo_factura,$TITULO_RESPALDOS){
+            Container_Boundary(api_respaldo_facturas,"API $TITULO_RESPALDOS"){
+                Component(componente_autenticacion, $COMPONENTE_AUTENTICACION,$COMPONENTE_AUTENTICACION_TEC, $COMPONENTE_AUTENTICACION_DESCRIP)
+                Component(componente_autorizacion, $COMPONENTE_AUTORIZACION, $COMPONENTE_AUTORIZACION_TEC , $COMPONENTE_AUTORIZACION_DESCRIP)
+                Component(componente_api_factura, $COMPONENTE_API_CUMPLO, $COMPONENTE_API_CUMPLO_TEC, $COMPONENTE_API_CUMPLO_DESCRIP)
+                Component(componente_factura, $COMPONENTE_FACTURA, $COMPONENTE_FACTURA_TEC, $COMPONENTE_FACTURA_DESCRIP)
+                Component(componente_extraccion, $COMPONENTE_EXTRACCION, $COMPONENTE_EXTRACCION_TEC, $COMPONENTE_EXTRACCION_DESCRIP)
+                Component(componente_cobranza, $COMPONENTE_COBRANZA, $COMPONENTE_COBRANZA_TEC,$COMPONENTE_COBRANZA_DESCRIP)
+                Component(componente_cesion, $COMPONENTE_CESION, $COMPONENTE_CESION_TEC,$COMPONENTE_CESION_DESCRIP )
+                Component(componente_notificacion, $COMPONENTE_NOTIFICACION, $COMPONENTE_NOTIFICACION_TEC,$COMPONENTE_NOTIFICACION_DESCRIP )
+                Component(componente_log, $COMPONENTE_LOGS, $COMPONENTE_LOGS_TEC,$COMPONENTE_LOGS_DESCRIP )
+                Component(componente_error_sistema, $COMPONENTE_ERROR_SISTEMA, $COMPONENTE_ERROR_SISTEMA_TEC,$COMPONENTE_ERROR_SISTEMA_DESCRIP )
+            }
+            ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "Almacena todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
+        }
+        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+    }
+}
+
+System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
+    System_Ext(cavali, $S_EXT_TITULO_CAVALI,$S_EXT_DESCRIPCION_CAVALI )
+    System_Ext(clay, $S_EXT_TITULO_CLAY,$S_EXT_DESCRIPCION_CLAY )
+    System_Ext(abstrahere, $S_EXT_TITULO_ABSTRAHERE,$S_EXT_DESCRIPCION_ABSTRAHERE )
+    System_Ext(satws, $S_EXT_TITULO_SATWS,$S_EXT_DESCRIPCION_SATWS )
+    System_Ext(radian, $S_EXT_TITULO_RADIAN,$S_EXT_DESCRIPCION_RADIAN )
+    System_Ext(intiza, $S_EXT_TITULO_INTIZA,$S_EXT_DESCRIPCION_INTIZA )
+    System_Ext(fapro, $S_EXT_TITULO_FAPRO,$S_EXT_DESCRIPCION_FAPRO )
+    System_Ext(sat, $S_EXT_TITULO_SAT,$S_EXT_DESCRIPCION_SAT )
+    System_Ext(sii, $S_EXT_TITULO_SII,$S_EXT_DESCRIPCION_SII )
+    System_Ext(sunat, $S_EXT_TITULO_SUNAT,$S_EXT_DESCRIPCION_SUNAT )
+    System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
+
+}
+'System_Boundary(sistemas_externos_aws, $PERIMETRO_SISTEMAS_EXTERNOS){
+'System_Ext(sist_aws, "AWS","Amazon web services" )
+'System_Ext(sist_sentry, "Sentry","Servicio de gestión de Errores de sistemas" )
+'}
+ System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
+   System_Ext(sist_externo_logs, $S_EXT_TITULO_CLOUDWATCH ,$S_EXT_DESCRIPCION_CLOUDWATCH )
+   System_Ext(sist_externo_notificacion,$S_EXT_TITULO_SNS, $S_EXT_DESCRIPCION_SNS )
+   System_Ext(sist_externo_errores, $S_EXT_TITULO_SENTRY,$S_EXT_DESCRIPCION_SENTRY )
+  }
+
+
+
+'RELACIONES DE SISTEMA
+'Relaciones contenedores/componenetes
+
+Rel(componente_autorizacion,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
+Rel_R( componente_autenticacion, modulo_autenticacion, "autentica $MODELO_ACCESO",HTTPS )
+Rel(componente_factura,base_datos_respaldo_facturas,"lee desde y escribe en",QuerySets)
+
+
+'Relaciones contenedores/contenedores
+BiRel_U(componente_factura,componente_api_factura, $MODELO_RESPALDO)
+Rel_U(componente_extraccion,componente_factura, $MODELO_RESPALDO)
+Rel_L(componente_api_factura,componente_autenticacion, $MODELO_ACCESO)
+Rel_R(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_ACCION")
+BiRel_U(componente_cobranza,componente_factura, "$MODELO_RESPALDO")
+BiRel_U(componente_cesion,componente_factura, "Cede y es notificado de cesion de $MODELO_RESPALDO")
+Rel_U(componente_api_factura,componente_notificacion, $MODELO_RESPALDO)
+Rel_U(componente_api_factura,componente_error_sistema, Exception)
+Rel_U(componente_api_factura,componente_log, Logs)
+
+
+'Relaciones componenetes/sistemas externos
+Rel( componente_cobranza,intiza, "$MODELO_RESPALDO, Deudores,Pagos ",FTPS,$tags="pendiente" )
+Rel( componente_cesion,cavali, "cede $MODELO_RESPALDO",HTTPS )
+BiRel( componente_cesion,abstrahere, "solicita y es notificado de cesión de $MODELO_RESPALDO", HTTPS  )
+Rel(componente_extraccion,radian, "extrae $MODELO_RESPALDO",HTTPS, $tags="pendiente")
+Rel(componente_extraccion,satws, "extrae $MODELO_RESPALDO",HTTPS)
+Rel(componente_extraccion,clay,  "extrae $MODELO_RESPALDO" ,HTTPS)
+Rel(componente_extraccion,fapro, "extrae $MODELO_RESPALDO",HTTPS ,$tags="pendiente")
+
+Rel_U(componente_notificacion,sist_externo_notificacion, $MODELO_RESPALDO,Boto3 ,$tags="pendiente")
+Rel_U(componente_log,sist_externo_logs, "Logs" ,$tags="pendiente", Boto3)
+Rel_U(componente_error_sistema,sist_externo_errores, Exception , DNS ,$tags="pendiente")
+
+
+
+Lay_R(radian,cavali )
+Lay_L(clay,fapro )
+
+
+
+'Relaciones sistemas externos/sistemas externos
+
+Rel( fapro, sii, "Se comunica con" )
+Rel( clay,sii, "Se comunica con"  )
+Rel( abstrahere,sii, "Se comunica con"  )
+Rel( satws,sat, "Se comunica con"  )
+Rel( cavali, sunat, "Se comunica con"  )
+Rel( radian, dian, "Se comunica con"  )
+
+
+'Relaciones Componentes/sistemas externos
+
+
+
+
+
+'declaraciones para distribución espacial
+Lay_D(sistemas_modulos,sistemas_externos )
+
+
+@enduml
