@@ -44,13 +44,13 @@
 'COMPONENTE NOTIFICACION
 !global $COMPONENTE_NOTIFICACION = "Gestionador de notificaciones"
 !global $COMPONENTE_NOTIFICACION_DESCRIP =  "Notifica de creación y actualizacion en la información de facturas"
-!global $COMPONENTE_NOTIFICACION_TEC =   "Dependencia SNS, Botocode, de AWS"
+!global $COMPONENTE_NOTIFICACION_TEC =   "Dependencia SNS, Boto3, de AWS"
 
 
 'COMPONENTE LOGS
 !global $COMPONENTE_LOGS = "Gestionador de logs de sistema"
 !global $COMPONENTE_LOGS_DESCRIP =  "registra las acciones más importantes del módulo"
-!global $COMPONENTE_LOGS_TEC =   "Dependencia WatchTower, Botocode, de AWS"
+!global $COMPONENTE_LOGS_TEC =   "Dependencia WatchTower, Boto3, de AWS"
 
 'COMPONENTE ERROR
 !global $COMPONENTE_ERROR_SISTEMA = "Gestionador de errores de sistema"

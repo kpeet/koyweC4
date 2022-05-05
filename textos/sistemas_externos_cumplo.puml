@@ -32,6 +32,8 @@
 !global $S_EXT_TITULO_FAPRO= "Fapro"
 !global $S_EXT_DESCRIPCION_FAPRO= "Se conecta a SII y la TGR, y obtiene información de facturas y cesiones"
 
+'--------------------------------
+
 'Organismos Tributarios
 
 
@@ -47,4 +49,18 @@
 
 !global $S_EXT_TITULO_DIAN= "DIAN"
 !global $S_EXT_DESCRIPCION_DIAN= "Organismo Tributario Colombiano"
+
+'--------------------------------
+
+'AWS
+!global $S_EXT_TITULO_CLOUDWATCH = "AWS Cloudwatch"
+!global $S_EXT_DESCRIPCION_CLOUDWATCH ="Recopila datos operativos y de monitoreo en forma de registros, métricas y eventos, y permite su visualización mediante paneles automatizados"
+
+!global $S_EXT_TITULO_SNS = "AWS SNS"
+!global $S_EXT_DESCRIPCION_SNS ="Notificaciones push móviles, correo electrónico, SMS y mensajería de publicación/suscripción completamente administrada en AWS"
+
+'--------------------------------
+
+!global $S_EXT_TITULO_SENTRY = "Sentry"
+!global $S_EXT_DESCRIPCION_SENTRY ="Sistema de control y gestión de errores"
 

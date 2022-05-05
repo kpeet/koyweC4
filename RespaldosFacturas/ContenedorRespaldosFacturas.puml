@@ -18,13 +18,13 @@
 
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Contenedores de sistema Módulo Respaldos y Facturas
+title Diagrama Contenedor, Módulo Respaldos y Facturas, Cumplo Mañana, v1.0.2
 
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System_Boundary(modulo_respaldo_factura,$TITULO_RESPALDOS){
             Container(modulo_respaldo_facturas, "API respaldos facturas","Django RestFramework", "API para gestión de facturas en Cumplo" )
-            ContainerDb(base_datos_respaldo_facturas,"Base de datos" ,"MySql", "Almacena todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
+            ContainerDb(base_datos_respaldo_facturas,"BD respaldos_facturas" ,"MySql", "Almacena todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
         }
         System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
         System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
@@ -46,15 +46,15 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 }
 
 System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
- System_Ext(sist_externo_logs, "AWS Cloudwatch"," is a log management service built into AWS" )
- System_Ext(sist_externo_notificacion, "AWS SNS","Amazon web services" )
- System_Ext(sist_externo_errores, "Sentry","Servicio de gestión de Errores de sistemas" )
+  System_Ext(sist_externo_logs, $S_EXT_TITULO_CLOUDWATCH ,$S_EXT_DESCRIPCION_CLOUDWATCH )
+  System_Ext(sist_externo_notificacion,$S_EXT_TITULO_SNS, $S_EXT_DESCRIPCION_SNS )
+  System_Ext(sist_externo_errores, $S_EXT_TITULO_SENTRY,$S_EXT_DESCRIPCION_SENTRY )
  }
 
 
 'RELACIONES DE SISTEMA
-Rel_U(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
 Rel_U( modulo_respaldo_facturas, modulo_autenticacion, "autentica $MODELO_ACCESO",HTTPS )
+Rel_U(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
 Rel_R(modulo_respaldo_facturas,base_datos_respaldo_facturas,"lee desde y escribe en",QuerySets)
 
 'Relaciones módulos/sistemas externos

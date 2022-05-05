@@ -14,14 +14,14 @@
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Contexto de sistema Módulo Respaldos y Facturas
+title Diagrama Contexto, Módulo Respaldos y Facturas, Cumplo Mañana, v1.0.2
 
 
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
-        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
 
     }
 }
@@ -40,14 +40,14 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
 }
 System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
- System_Ext(sist_externo_logs, "AWS Cloudwatch","Amazon web services" )
- System_Ext(sist_externo_notificacion, "AWS SNS","Amazon web services" )
- System_Ext(sist_externo_errores, "Sentry","Servicio de gestión de Errores de sistemas" )
+ System_Ext(sist_externo_logs, $S_EXT_TITULO_CLOUDWATCH ,$S_EXT_DESCRIPCION_CLOUDWATCH )
+ System_Ext(sist_externo_notificacion,$S_EXT_TITULO_SNS, $S_EXT_DESCRIPCION_SNS )
+ System_Ext(sist_externo_errores, $S_EXT_TITULO_SENTRY,$S_EXT_DESCRIPCION_SENTRY )
  }
 
 'Relaciones sistema/módulos
 Rel_R(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
-Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
+Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO" )
 
 
 
@@ -86,5 +86,5 @@ Lay_D(sistemas_externos, sistemas_externos_2 )
 
 
 
-
+footer dibujado por área de Arquitectura Cumplo, con PlantUML v. %version() and C4-PlantUML v. C4Version()
 @enduml

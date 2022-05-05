@@ -19,7 +19,7 @@
 
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Contenedores de sistema Módulo Respaldos y Facturas
+title Diagrama Componentes, Módulo Respaldos y Facturas, Cumplo Mañana, v1.0.2
 
 Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
@@ -36,10 +36,10 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
                 Component(componente_log, $COMPONENTE_LOGS, $COMPONENTE_LOGS_TEC,$COMPONENTE_LOGS_DESCRIP )
                 Component(componente_error_sistema, $COMPONENTE_ERROR_SISTEMA, $COMPONENTE_ERROR_SISTEMA_TEC,$COMPONENTE_ERROR_SISTEMA_DESCRIP )
             }
-            ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "BD, lee y escribe todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
+            ContainerDb(base_datos_respaldo_facturas,"respaldos_facturas" ,"MySql", "Almacena todos los datos asociados a las facturas, cesiones, pagos, si es real, si es confirmada")
         }
-        Container_Ext(modulo_autenticacion, $TITULO_AUTENTICACION ,"Django RestFramework", $DESCRIPCION_AUTENTICACION)
-        Container_Ext(modulo_autorizacion,$TITULO_AUTORIZACION ,"Dependencia Python", $DESCRIPCION_AUTORIZACION)
+        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
     }
 }
 
@@ -57,27 +57,31 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(dian, $S_EXT_TITULO_DIAN,$S_EXT_DESCRIPCION_DIAN )
 
 }
-System_Boundary(sistemas_externos_aws, $PERIMETRO_SISTEMAS_EXTERNOS){
-
- System_Ext(sist_aws, "AWS","Amazon web services" )
- System_Ext(sist_sentry, "Sentry","Servicio de gestión de Errores de sistemas" )
-
- }
+'System_Boundary(sistemas_externos_aws, $PERIMETRO_SISTEMAS_EXTERNOS){
+'System_Ext(sist_aws, "AWS","Amazon web services" )
+'System_Ext(sist_sentry, "Sentry","Servicio de gestión de Errores de sistemas" )
+'}
+ System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
+   System_Ext(sist_externo_logs, $S_EXT_TITULO_CLOUDWATCH ,$S_EXT_DESCRIPCION_CLOUDWATCH )
+   System_Ext(sist_externo_notificacion,$S_EXT_TITULO_SNS, $S_EXT_DESCRIPCION_SNS )
+   System_Ext(sist_externo_errores, $S_EXT_TITULO_SENTRY,$S_EXT_DESCRIPCION_SENTRY )
+  }
 
 
 
 'RELACIONES DE SISTEMA
 'Relaciones contenedores/componenetes
-Rel_U(componente_autorizacion,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
-Rel_U(componente_autenticacion, modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
-Rel_U(componente_factura,base_datos_respaldo_facturas,"lee y escribe")
+
+Rel(componente_autorizacion,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
+Rel_R( componente_autenticacion, modulo_autenticacion, "autentica $MODELO_ACCESO",HTTPS )
+Rel(componente_factura,base_datos_respaldo_facturas,"lee desde y escribe en",QuerySets)
 
 
 'Relaciones contenedores/contenedores
 BiRel_U(componente_factura,componente_api_factura, $MODELO_RESPALDO)
 Rel_U(componente_extraccion,componente_factura, $MODELO_RESPALDO)
-Rel_R(componente_api_factura,componente_autenticacion, $MODELO_ACCESO)
-Rel_L(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_ACCION")
+Rel_L(componente_api_factura,componente_autenticacion, $MODELO_ACCESO)
+Rel_R(componente_api_factura,componente_autorizacion, "$MODELO_ACCESO, $MODELO_ACCION")
 BiRel_U(componente_cobranza,componente_factura, "$MODELO_RESPALDO")
 BiRel_U(componente_cesion,componente_factura, "Cede y es notificado de cesion de $MODELO_RESPALDO")
 Rel_U(componente_api_factura,componente_notificacion, $MODELO_RESPALDO)
@@ -94,9 +98,9 @@ Rel(componente_extraccion,satws, "extrae $MODELO_RESPALDO",HTTPS)
 Rel(componente_extraccion,clay,  "extrae $MODELO_RESPALDO" ,HTTPS)
 Rel(componente_extraccion,fapro, "extrae $MODELO_RESPALDO",HTTPS ,$tags="pendiente")
 
-Rel_U(componente_notificacion,sist_aws, $MODELO_RESPALDO,Botocode ,$tags="pendiente")
-Rel_U(componente_log,sist_aws, "Logs" ,$tags="pendiente", Botocode)
-Rel_U(componente_error_sistema,sist_sentry, Exception ,$tags="pendiente")
+Rel_U(componente_notificacion,sist_externo_notificacion, $MODELO_RESPALDO,Boto3 ,$tags="pendiente")
+Rel_U(componente_log,sist_externo_logs, "Logs" ,$tags="pendiente", Boto3)
+Rel_U(componente_error_sistema,sist_externo_errores, Exception , DNS ,$tags="pendiente")
 
 
 
@@ -123,7 +127,6 @@ Rel( radian, dian, "Se comunica con"  )
 
 'declaraciones para distribución espacial
 Lay_D(sistemas_modulos,sistemas_externos )
-Lay_U(sistemas_modulos,sist_aws )
 
 
 @enduml

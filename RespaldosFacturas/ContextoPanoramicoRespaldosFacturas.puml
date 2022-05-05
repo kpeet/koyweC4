@@ -14,7 +14,7 @@
 'LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Diagrama Panorámico de sistema Módulo Respaldos y Facturas
+title Diagrama Panorámico, Módulo Respaldos y Facturas, Cumplo Mañana, v1.0.2
 Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
 Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
 Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
@@ -26,8 +26,8 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_respaldo_facturas, $TITULO_RESPALDOS, $DESCRIPCION_RESPALDOS )
         'System(modulo_operaciones, $TITULO_CICLO_VIDA_OPERACION,$DESCRIPCION_CICLO_VIDA_OPERACION )
-        System(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        System(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
+        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
 
         'System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         'System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
@@ -60,16 +60,16 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 
 System_Boundary(sistemas_externos_2, $PERIMETRO_SISTEMAS_EXTERNOS){
  System_Ext(hubspot, $S_EXT_TITULO_HUBSPOT,$S_EXT_DESCRIPCION_HUBSPOT )
- System_Ext(sist_externo_logs, "AWS Cloudwatch","Amazon web services" )
- System_Ext(sist_externo_notificacion, "AWS SNS","Amazon web services" )
- System_Ext(sist_externo_errores, "Sentry","Servicio de gestión de Errores de sistemas" )
+ System_Ext(sist_externo_logs, $S_EXT_TITULO_CLOUDWATCH ,$S_EXT_DESCRIPCION_CLOUDWATCH )
+ System_Ext(sist_externo_notificacion,$S_EXT_TITULO_SNS, $S_EXT_DESCRIPCION_SNS )
+ System_Ext(sist_externo_errores, $S_EXT_TITULO_SENTRY,$S_EXT_DESCRIPCION_SENTRY )
  }
 
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
 Rel_R(modulo_respaldo_facturas,modulo_autorizacion, "valida $MODELO_AUTORIZACION")
-Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO", HTTPS )
+Rel_L( modulo_respaldo_facturas,modulo_autenticacion, "autentica $MODELO_ACCESO" )
 
 'Relaciones usuarios/sitios
 
@@ -94,7 +94,7 @@ Rel(s_inversionista,modulo_respaldo_facturas, "obtiene $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,intiza, "gestiona cobranza de $MODELO_RESPALDO",$tags="pendiente" )
 Rel( sist_externo_notificacion,hubspot, "notifica $MODELO_RESPALDO",$tags="pendiente" )
 Rel( modulo_respaldo_facturas,cavali, "cede $MODELO_RESPALDO" )
-Rel( modulo_respaldo_facturas,abstrahere, "cede $MODELO_RESPALDO"  )
+Rel( modulo_respaldo_facturas,abstrahere, "solicita y es notificado de cesión de $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,radian, "extrae $MODELO_RESPALDO",$tags="pendiente")
 Rel( modulo_respaldo_facturas,satws, "extrae $MODELO_RESPALDO" )
 Rel( modulo_respaldo_facturas,clay, "extrae $MODELO_RESPALDO" )
@@ -126,6 +126,5 @@ Lay_D(sistemas_modulos,sistemas_externos )
 
 
 
-
-
+footer dibujado por área de Arquitectura Cumplo, con PlantUML v. %version() and C4-PlantUML v. C4Version()
 @enduml
