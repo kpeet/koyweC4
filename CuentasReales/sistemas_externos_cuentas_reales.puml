@@ -1,0 +1,56 @@
+
+!global $S_EXT_TITULO_PROMETEO= "Prometeo"
+!global $S_EXT_DESCRIPCION_PROMETEO= "API simple para hacer conciliación bancaria."
+
+
+!global $S_EXT_TITULO_FINTOC= "Fintoc"
+!global $S_EXT_DESCRIPCION_FINTOC= "API simple para hacer conciliación bancaria."
+
+!global $S_EXT_TITULO_KHIPU= "Kipu"
+!global $S_EXT_DESCRIPCION_KHIPU= "Pendiente"
+
+
+
+!global $S_EXT_TITULO_STP= "STP"
+!global $S_EXT_DESCRIPCION_STP= "Sistema de transferencias y pagos electrónicos en MX"
+
+'--------------------------------
+
+'Bancos
+
+!global $S_EXT_TITULO_BANCO_SANTANDER= "Banco Santander"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER= "Banco CL"
+
+!global $S_EXT_TITULO_BANCO_BCI= "Banco BCI"
+!global $S_EXT_DESCRIPCION_BANCO_BCI= "Banco CL"
+
+!global $S_EXT_TITULO_BANCO_BICE= "Banco BICE"
+!global $S_EXT_DESCRIPCION_BANCO_BICE= "Banco CL"
+
+!global $S_EXT_TITULO_BANCO_BBVA= "Banco BBVA"
+!global $S_EXT_DESCRIPCION_BANCO_BBVA= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_JEEVES= "Banco Jeeves"
+!global $S_EXT_DESCRIPCION_BANCO_JEEVES= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_SCOTIABANK= "Banco Scotiabank "
+!global $S_EXT_DESCRIPCION_BANCO_SCOTIABANK= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_BREX= "Banco Brex "
+!global $S_EXT_DESCRIPCION_BANCO_SCOTIABANK= "Banco US"
+
+
+'--------------------------------
+
+'AWS
+!global $S_EXT_TITULO_CLOUDWATCH = "AWS Cloudwatch"
+!global $S_EXT_DESCRIPCION_CLOUDWATCH ="Recopila datos operativos y de monitoreo en forma de registros, métricas y eventos, y permite su visualización mediante paneles automatizados"
+
+!global $S_EXT_TITULO_SNS = "AWS SNS"
+!global $S_EXT_DESCRIPCION_SNS ="Notificaciones push móviles, correo electrónico, SMS y mensajería de publicación/suscripción completamente administrada en AWS"
+
+'--------------------------------
+
+!global $S_EXT_TITULO_SENTRY = "Sentry"
+!global $S_EXT_DESCRIPCION_SENTRY ="Sistema de control y gestión de errores"
+
