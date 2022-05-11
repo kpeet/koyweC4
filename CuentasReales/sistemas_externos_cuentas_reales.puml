@@ -18,29 +18,60 @@
 
 'Bancos
 
-!global $S_EXT_TITULO_BANCO_SANTANDER= "Banco Santander"
-!global $S_EXT_DESCRIPCION_BANCO_SANTANDER= "Banco CL"
+!global $S_EXT_TITULO_BANCO_SANTANDER_CL= "Banco Santander"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL= "Banco CL"
 
-!global $S_EXT_TITULO_BANCO_BCI= "Banco BCI"
-!global $S_EXT_DESCRIPCION_BANCO_BCI= "Banco CL"
+!global $S_EXT_TITULO_BANCO_BCI_CL= "Banco BCI"
+!global $S_EXT_DESCRIPCION_BANCO_BCI_CL= "Banco CL"
 
-!global $S_EXT_TITULO_BANCO_BICE= "Banco BICE"
-!global $S_EXT_DESCRIPCION_BANCO_BICE= "Banco CL"
+!global $S_EXT_TITULO_BANCO_BICE_CL= "Banco BICE"
+!global $S_EXT_DESCRIPCION_BANCO_BICE_CL= "Banco CL"
 
-!global $S_EXT_TITULO_BANCO_BBVA= "Banco BBVA"
-!global $S_EXT_DESCRIPCION_BANCO_BBVA= "Banco MX"
-
-!global $S_EXT_TITULO_BANCO_JEEVES= "Banco Jeeves"
-!global $S_EXT_DESCRIPCION_BANCO_JEEVES= "Banco MX"
-
-!global $S_EXT_TITULO_BANCO_SCOTIABANK= "Banco Scotiabank "
-!global $S_EXT_DESCRIPCION_BANCO_SCOTIABANK= "Banco MX"
-
-!global $S_EXT_TITULO_BANCO_BREX= "Banco Brex "
-!global $S_EXT_DESCRIPCION_BANCO_SCOTIABANK= "Banco US"
+!global $S_EXT_TITULO_BANCO_ESTADO_CL= "Banco Estado"
+!global $S_EXT_DESCRIPCION_BANCO_ESTADO_CL= "Banco CL"
 
 
+!global $S_EXT_TITULO_BANCO_BBVA_MX= "Banco BBVA"
+!global $S_EXT_DESCRIPCION_BANCO_BBVA_MX= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_JEEVES_MX= "Banco Jeeves"
+!global $S_EXT_DESCRIPCION_BANCO_JEEVES_MX= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_SCOTIABANK_MX= "Banco Scotiabank "
+!global $S_EXT_DESCRIPCION_BANCO_SCOTIABANK_MX= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_INBURSA_MX= "Banco Inbursa"
+!global $S_EXT_DESCRIPCION_BANCO_INBURSA_MX= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_BXMAS_MX= "Banco BX+ "
+!global $S_EXT_DESCRIPCION_BANCO_BXMAS_MX= "Banco MX"
+
+!global $S_EXT_TITULO_BANCO_BREX_US= "Banco Brex "
+!global $S_EXT_DESCRIPCION_BANCO_BREX_US= "Banco US"
+
+!global $S_EXT_TITULO_BANCO_BCP_PE= "Banco BCP "
+!global $S_EXT_DESCRIPCION_BANCO_BCP_PE= "Banco PE"
 '--------------------------------
+
+'Cuentas Bancarias
+'SANTANDER CL
+!global $S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_1= "168-4"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_1= "Cuenta Administrativa CLP"
+
+!global $S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_2= "412-0"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_2= "Cuenta Administrativa CLP"
+
+!global $S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_3= "896-2"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_3= "Cuenta Operativa CLP"
+
+!global $S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_4= "411-2"
+!global $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_4= "Cuenta Administrativa USD"
+
+
+'BCI CL
+!global $S_EXT_TITULO_BANCO_BCI_CL_CUENTA_1= "1639"
+!global $S_EXT_DESCRIPCION_BANCO_BCI_CL_CUENTA_1= "Cuenta Administrativa USD"
+
 
 'AWS
 !global $S_EXT_TITULO_CLOUDWATCH = "AWS Cloudwatch"

@@ -1,0 +1,52 @@
+@startuml ContextoPanoramicoBancosCumplo
+' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../C4_Context.puml
+!include ../textos/modulos.puml
+!include ../textos/modelos.puml
+!include ../textos/sitios.puml
+!include ./sistemas_externos_cuentas_reales.puml
+!include ../textos/usuarios.puml
+!include ../textos/perimetros.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Diagrama Panorámico Bancos Cumplo
+
+Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO, $DESCRIPCION_AGENTE_CUMPLO)
+Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
+Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
+Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
+
+System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
+  'BANCOS
+    System_Boundary(cl,"CL"){
+        System_Ext(banco_santander_cl,$S_EXT_TITULO_BANCO_SANTANDER_CL , $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL)
+        System_Ext(banco_bci_cl,$S_EXT_TITULO_BANCO_BCI_CL , $S_EXT_DESCRIPCION_BANCO_BCI_CL)
+        System_Ext(banco_bice_cl,$S_EXT_TITULO_BANCO_BICE_CL , $S_EXT_DESCRIPCION_BANCO_BICE_CL)
+        System_Ext(banco_estado_cl,$S_EXT_TITULO_BANCO_ESTADO_CL , $S_EXT_DESCRIPCION_BANCO_ESTADO_CL)
+
+    }
+    System_Boundary(mx,"MX"){
+        System_Ext(banco_bbva_mx,$S_EXT_TITULO_BANCO_BBVA_MX , $S_EXT_DESCRIPCION_BANCO_BBVA_MX)
+        System_Ext(banco_scotiabank_mx,$S_EXT_TITULO_BANCO_SCOTIABANK_MX , $S_EXT_DESCRIPCION_BANCO_SCOTIABANK_MX)
+        System_Ext(banco_inbursa_mx,$S_EXT_TITULO_BANCO_INBURSA_MX , $S_EXT_DESCRIPCION_BANCO_INBURSA_MX)
+        System_Ext(banco_bxmas_mx,$S_EXT_TITULO_BANCO_BXMAS_MX , $S_EXT_DESCRIPCION_BANCO_BXMAS_MX)
+        System_Ext(banco_jeeves_mx,"$S_EXT_TITULO_BANCO_JEEVES_MX**" , $S_EXT_DESCRIPCION_BANCO_JEEVES_MX)
+
+    }
+    System_Boundary(pe,"PE"){
+        System_Ext(banco_bcp_pe,$S_EXT_TITULO_BANCO_BCP_PE , $S_EXT_DESCRIPCION_BANCO_BCP_PE)
+    }
+    System_Boundary(us,"US"){
+        System_Ext(banco_brex_us,$S_EXT_TITULO_BANCO_BREX_US , $S_EXT_DESCRIPCION_BANCO_BREX_US)
+    }
+}
+
+'RELACIONES DE SISTEMA
+
+
+@enduml
