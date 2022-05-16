@@ -6,6 +6,7 @@
 !include ../textos/modulos.puml
 !include ../textos/modelos.puml
 !include ./sistemas_externos_cuentas_reales.puml
+!include ../textos/perimetros.puml
 
 LAYOUT_WITH_LEGEND()
 
@@ -16,7 +17,7 @@ Enterprise_Boundary(c0, $PERIMETRO_CUMPLO ) {
     System_Boundary(sistemas_modulos, $PERIMETRO_MODULOS){
         System(modulo_cuentas_reales, $TITULO_CUENTAS_REALES, $DESCRIPCION_CUENTAS_REALES)
         System_Ext(modulo_autenticacion, $TITULO_AUTENTICACION , $DESCRIPCION_AUTENTICACION)
-        System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
+        'System_Ext(modulo_autorizacion,$TITULO_AUTORIZACION , $DESCRIPCION_AUTORIZACION)
         System_Ext(modulo_registro_actores,$TITULO_REGISTRO_ACTORES ,$DESCRIPCION_REGISTRO_ACTORES )
         System_Ext(modulo_cuentas_virtuales, $TITULO_CUENTAS_VIRTUALES ,$DESCRIPCION_CUENTAS_VIRTUALES )
     }
@@ -61,9 +62,10 @@ Rel_U(modulo_cuentas_reales,modulo_cuentas_virtuales, "registra movimientos virt
 'Relaciones módulos/sistemas externos
 Rel_D( modulo_cuentas_reales,fintoc, obtiene $MODELO_TRANSACCION)
 Rel_D(  modulo_cuentas_reales,prometeo, obtiene $MODELO_TRANSACCION)
-Rel_D(  modulo_cuentas_reales,khipu, obtiene $MODELO_TRANSACCION e identificador de Pago)
-Rel_D(  khipu, banco_bci_cl, obtiene $MODELO_TRANSACCION e identificador de Pago)
-Rel_D(  modulo_cuentas_reales,stp, obtiene $MODELO_TRANSACCION)
+Rel_D( modulo_cuentas_reales, khipu, asocia pagos y $MODELO_TRANSACCION)
+Rel_D(  khipu, banco_bci_cl, gira a banco)
+Rel_D(  modulo_cuentas_reales,stp, obtiene $MODELO_TRANSACCION e información para identificar pagos)
+
 
 'Relaciones sistemas externos/sistemas externos
 Rel(fintoc, banco_santander_cl, obtiene movimientos bancarios)
@@ -73,8 +75,10 @@ Rel(fintoc, banco_bice_cl, obtiene movimientos bancarios)
 Rel(prometeo, banco_bcp_pe, obtiene movimientos bancarios)
 
 
+Rel(stp, banco_bbva_mx, obtiene movimientos bancarios)
+
+
 
 'declaraciones para distribución espacial
 Lay_D(sistemas_modulos, sistemas_externos )
-
 @enduml
