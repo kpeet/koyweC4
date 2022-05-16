@@ -20,19 +20,14 @@ Person_Ext(agente_cumplo, $TITULO_AGENTE_CUMPLO, $DESCRIPCION_AGENTE_CUMPLO)
 Person_Ext(solicitante,$TITULO_SOLICITANTE, $DESCRIPCION_SOLICITANTE )
 Person_Ext(inversionista, $TITULO_INVERSIONISTA ,$DESCRIPCION_INVERSIONISTA )
 Person_Ext(pagador,$TITULO_PAGADOR ,$DESCRIPCION_PAGADOR )
+Person_Ext(accionista,"Accionista" , "Aporte de capital" )
+
+Person_Ext(proveedor_externo,"Proveedor Externo" , "Provee servicios o insumos a cumplo" )
 
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
   'BANCOS
     System_Boundary(cl,"CL"){
-        System_Boundary(cuentas_santander,"Santander BARBARA"){
-
-            System_Ext(banco_santander_cl_cuenta_1,$S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_1 , $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_1)
-            System_Ext(banco_santander_cl_cuenta_2,$S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_2 , $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_2)
-            System_Ext(banco_santander_cl_cuenta_3,$S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_3 , $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_3)
-            System_Ext(banco_santander_cl_cuenta_4,$S_EXT_TITULO_BANCO_SANTANDER_CL_CUENTA_4 , $S_EXT_DESCRIPCION_BANCO_SANTANDER_CL_CUENTA_4)
-
-        }
-        System_Boundary(cuentas_santander_pedro,"Santander PEDRO"){
+        System_Boundary(cuentas_santander_pedro,"Santander"){
 
             System_Ext(banco_santander_cl_cuenta_1_p,"6586896-2", "Operaciones")
             System_Ext(banco_santander_cl_cuenta_2_p,"8413460-0", "Operaciones")
@@ -74,6 +69,24 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 }
 
 'RELACIONES DE SISTEMA
+Rel(agente_cumplo, banco_santander_cl_cuenta_1_p, "transfiere dinero via nóminas desde")
+Rel( banco_santander_cl_cuenta_1_p, inversionista, "gira dinero a cuenta bancaria de")
+Rel( banco_santander_cl_cuenta_1_p, solicitante, "gira dinero a cuenta bancaria de")
+Rel( pagador, banco_santander_cl_cuenta_1_p, "transfiere pagos")
+
+
+Rel(banco_santander_cl_cuenta_1_p, banco_santander_cl_cuenta_2_p, "almacena saldos de cuentas T en")
+Rel( banco_santander_cl_cuenta_2_p, solicitante, "gira dinero a cuenta bancaria de")
+
+
+Rel( accionista,banco_santander_cl_cuenta_4_p, aporte de capital)
+
+Rel(banco_santander_cl_cuenta_5_p,proveedor_externo, "pago proveedores")
+
+Rel(agente_cumplo, banco_santander_cl_cuenta_6_p, "transfiere dinero via nóminas desde")
+Rel( banco_santander_cl_cuenta_6_p, inversionista, "gira dinero a cuenta bancaria de")
+Rel( banco_santander_cl_cuenta_6_p, solicitante, "gira dinero a cuenta bancaria de")
+Rel( pagador, banco_santander_cl_cuenta_6_p, "transfiere pagos")
 
 
 @enduml
