@@ -1,0 +1,5 @@
+!global $RELACION_USUARIO_CLIENTE = "Solicita contenido"
+!global $RELACION_CLIENTE_KOYWE = "Llama los servicios"
+!global $RELACION_KOYWE_DB = "Almacena datos de los clientes"
+!global $RELACION_KOYWE_MAIL = "Usa para KYC/Webhooks"
+!global $RELACION_MAIL_USUARIO = "Envía correos para KYC/estado de transacción"

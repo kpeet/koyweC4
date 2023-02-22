@@ -1,0 +1,26 @@
+!global $S_EXT_TITULO_FIREBLOCK= "Fireblocks"
+!global $S_EXT_DESCRIPCION_FIREBLOCK= "Plataforma para administrar y crear operaciones de compra y venta de crypto."
+
+!global $S_EXT_TITULO_KHIPU= "Khipu"
+!global $S_EXT_DESCRIPCION_KHIPU= "Plataforma que facilita las transferencias bancarias (CHL/ARG)."
+
+!global $S_EXT_TITULO_KUSHKY= "Kushky"
+!global $S_EXT_DESCRIPCION_KUSHKY= "Plataforma de pago que soporta múltiples medios de pagos para toda latinoamérica."
+
+!global $S_EXT_TITULO_METAMAP= "Metamap"
+!global $S_EXT_DESCRIPCION_METAMAP= "Servicio que entrega las herramientas para hacer KYC (Know Your Customer)."
+
+!global $S_EXT_TITULO_MINKA= "Minka"
+!global $S_EXT_DESCRIPCION_MINKA= "Red de pagos, actualmente usada para las transacciones de Colombia."
+
+!global $S_EXT_TITULO_RATES= "Rates"
+!global $S_EXT_DESCRIPCION_RATES= "Falta."
+
+!global $S_EXT_TITULO_SHINKANSEN= "Shinkansen"
+!global $S_EXT_DESCRIPCION_SHINKANSEN= "Servicio que permite mover dinero desde y hacia cuentas bancarias o fintech."
+
+!global $S_EXT_TITULO_TRANSBANK= "Transbank"
+!global $S_EXT_DESCRIPCION_TRANSBANK= "Servicio que ofrece medio de pago en Chile."
+
+!global $S_EXT_TITULO_VITAWALLET= "Vitawallet"
+!global $S_EXT_DESCRIPCION_VITAWALLET= "Servicio de medio de pago, usado para onramp y offramp. Usada en Argentina."

@@ -12,3 +12,7 @@
 
 !global $TITULO_AGENTE_CUMPLO = "Agente Cumplo"
 !global $DESCRIPCION_AGENTE_CUMPLO = "Usuario interno de Cumplo."
+
+!global $TITULO_SOLICITANTE_KOYWE = "Usuario"
+!global $DESCRIPCION_SOLICITANTE_KOYWE = "Usuario de Cliente."
+

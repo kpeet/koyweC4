@@ -2,3 +2,5 @@
 !global $PERIMETRO_MODULOS= "Módulos"
 !global $PERIMETRO_SITIOS= "Sitios"
 !global $PERIMETRO_SISTEMAS_EXTERNOS="Sistemas externos"
+!global $PERIMETRO_KOYWE="Koywe"
+!global $PERIMETRO_CLIENTE="Cliente"
