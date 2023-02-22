@@ -29,8 +29,8 @@
 !global $TITULO_AUTORIZACION= "Módulo Autorizacion"
 !global $DESCRIPCION_AUTORIZACION =   "indica quién puede y no puede realizar  acciones en los sistemas de cumplo."
 
-!global $TITULO_CLIENTE_KOYWE = "Página de cliente"
-!global $DESCRIPCION_CLIENTE_KOYWE =  "Llama a los servicios de Koywe mediante uso del Widget o la API"
+!global $TITULO_CLIENTE_KOYWE = "Cliente"
+!global $DESCRIPCION_CLIENTE_KOYWE =  "Consume servicios de Koywe para generar Quotes y Orders"
 
 !global $TITULO_WIDGET = "Widget de Koywe"
 !global $DESCRIPCION_WIDGET =  "Servicios para realizar operaciones de on y off ramp (compra y venta)"

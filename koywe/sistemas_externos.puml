@@ -1,5 +1,5 @@
 !global $S_EXT_TITULO_FIREBLOCK= "Fireblocks"
-!global $S_EXT_DESCRIPCION_FIREBLOCK= "Plataforma para administrar y crear operaciones de compra y venta de crypto."
+!global $S_EXT_DESCRIPCION_FIREBLOCK= "Plataforma para administrar y crea operaciones de compra y venta de crypto."
 
 !global $S_EXT_TITULO_KHIPU= "Khipu"
 !global $S_EXT_DESCRIPCION_KHIPU= "Plataforma que facilita las transferencias bancarias (CHL/ARG)."

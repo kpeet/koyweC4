@@ -20,21 +20,20 @@ title Koywe in a nutshell
 Person_Ext(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
 
 Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
-    System(modulo_on_off, $TITULO_WIDGET, $DESCRIPCION_WIDGET)
-    System_Ext(modulo_correos,$TITULO_CORREOS ,$DESCRIPCION_CORREOS )
-    System_Ext(modulo_DB,$TITULO_DB ,$DESCRIPCION_DB)
+    System(modulo_on_off, "Sistema Koywe", $DESCRIPCION_WIDGET)
 }
 Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
-    System(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
+    System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(fireblock, $S_EXT_TITULO_FIREBLOCK, $S_EXT_DESCRIPCION_FIREBLOCK)
     System_Ext(khipu, $S_EXT_TITULO_KHIPU, $S_EXT_DESCRIPCION_KHIPU)
-    System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
+    'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
     System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
     System_Ext(minka, $S_EXT_TITULO_MINKA, $S_EXT_DESCRIPCION_MINKA)
-    System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
-    System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
+    System_Ext(Fintoc, "Fintoc", "Medio de pago")
+    'System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
+    'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
     System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
     System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
 }
@@ -43,21 +42,19 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
-Rel_L(modulo_on_off, modulo_DB, $RELACION_KOYWE_DB)
-Rel_R(modulo_on_off,modulo_correos, $RELACION_KOYWE_MAIL)
 
 'Relaciones usuarios/sitios
-Rel(modulo_correos,user, $RELACION_MAIL_USUARIO)
+Rel(modulo_on_off,user, $RELACION_MAIL_USUARIO)
 Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE)
 Rel(cliente_koywe, modulo_on_off,$RELACION_CLIENTE_KOYWE)
 
-Rel(modulo_on_off, fireblock,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, khipu,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, kushky,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, metamap,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, minka,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
+Rel(modulo_on_off, fireblock,"Gestión de Wallets y transacciones crypto.")
+Rel(modulo_on_off, khipu, "Genera transferencias bancarias en CHL y ARG.")
+'Rel(modulo_on_off, kushky,"")
+Rel(modulo_on_off, metamap,"Verificación de cuentas de usuario (KYC).")
+Rel(modulo_on_off, minka,"Generar y recibir transacciones bancarias en COL.")
+'Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
+'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
 Rel(modulo_on_off, transbank,$RELACION_CLIENTE_KOYWE)
 Rel(modulo_on_off, vitawallet,$RELACION_CLIENTE_KOYWE)
 
@@ -65,16 +62,18 @@ Rel(modulo_on_off, vitawallet,$RELACION_CLIENTE_KOYWE)
 
 'declaraciones para distribución espacial
 Lay_D(user, c0)
-Lay_L(modulo_on_off, modulo_correos)
-Lay_R(modulo_on_off, modulo_DB)
 
 Lay_D(fireblock, khipu)
-Lay_D(fireblock, kushky)
+'Lay_D(fireblock, kushky)
 Lay_D(fireblock, metamap)
 
 Lay_D(khipu, shinkansen)
 Lay_D(khipu, transbank)
 Lay_D(khipu, vitawallet)
+
+Lay_D(cliente, modulo_on_off)
+Lay_R(user, cliente)
+
 
 
 @enduml
