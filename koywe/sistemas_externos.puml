@@ -24,3 +24,6 @@
 
 !global $S_EXT_TITULO_VITAWALLET= "Vitawallet"
 !global $S_EXT_DESCRIPCION_VITAWALLET= "Servicio de medio de pago, usado para onramp y offramp. Usada en Argentina."
+
+!global $S_EXT_TITULO_FINTOC= "Fintoc"
+!global $S_EXT_DESCRIPCION_FINTOC= "Plataforma para recivir transferencias bancarias en Chile"

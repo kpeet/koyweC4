@@ -3,3 +3,11 @@
 !global $RELACION_KOYWE_DB = "Almacena datos de los clientes"
 !global $RELACION_KOYWE_MAIL = "Usa para KYC/Webhooks"
 !global $RELACION_MAIL_USUARIO = "Envía correos para KYC/estado de transacción"
+
+!global $RELACION_FIREBLOCK = "Gestión de Wallets y transacciones crypto"
+!global $RELACION_KHIPU = "Genera transferencias bancarias en CHL y ARG"
+!global $RELACION_METAMAP = "Verificación de cuentas de usuario (KYC)"
+!global $RELACION_MINKA = "Generar y recibir transacciones bancarias en COL"
+!global $RELACION_FINTOC = "Transferencias bancarias para onramp en CHL"
+!global $RELACION_TRANSBANK = "Generar y recibir transferencias bancarias"
+!global $RELACION_VITAWALLET = "Generar y recibir transferencias bancarias"

@@ -3,13 +3,12 @@
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml
 !include ../C4_Context.puml
-!include ../textos/modulos.puml
-!include ../textos/modelos.puml
-!include ../textos/sitios.puml
+!include modulos.puml
+!include modelos.puml
 !include sistemas_externos.puml
 !include relaciones.puml
-!include ../textos/usuarios.puml
-!include ../textos/perimetros.puml
+!include usuarios.puml
+!include perimetros.puml
 
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
@@ -31,7 +30,7 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
     System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
     System_Ext(minka, $S_EXT_TITULO_MINKA, $S_EXT_DESCRIPCION_MINKA)
-    System_Ext(Fintoc, "Fintoc", "Medio de pago")
+    System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
     'System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
     'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
     System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
@@ -48,30 +47,23 @@ Rel(modulo_on_off,user, $RELACION_MAIL_USUARIO)
 Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE)
 Rel(cliente_koywe, modulo_on_off,$RELACION_CLIENTE_KOYWE)
 
-Rel(modulo_on_off, fireblock,"Gestión de Wallets y transacciones crypto.")
-Rel(modulo_on_off, khipu, "Genera transferencias bancarias en CHL y ARG.")
+Rel(modulo_on_off, fireblock,$RELACION_FIREBLOCK)
+Rel(modulo_on_off, khipu, $RELACION_KHIPU)
 'Rel(modulo_on_off, kushky,"")
-Rel(modulo_on_off, metamap,"Verificación de cuentas de usuario (KYC).")
-Rel(modulo_on_off, minka,"Generar y recibir transacciones bancarias en COL.")
+Rel(modulo_on_off, metamap, $RELACION_METAMAP)
+Rel(modulo_on_off, minka, $RELACION_MINKA)
+Rel(modulo_on_off, fintoc,$RELACION_FINTOC)
 'Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
 'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, transbank,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, vitawallet,$RELACION_CLIENTE_KOYWE)
+Rel(modulo_on_off, transbank,$RELACION_TRANSBANK)
+Rel(modulo_on_off, vitawallet,$RELACION_VITAWALLET)
 
 
 
 'declaraciones para distribución espacial
 Lay_D(user, c0)
 
-Lay_D(fireblock, khipu)
-'Lay_D(fireblock, kushky)
-Lay_D(fireblock, metamap)
-
-Lay_D(khipu, shinkansen)
-Lay_D(khipu, transbank)
-Lay_D(khipu, vitawallet)
-
-Lay_D(cliente, modulo_on_off)
+'Lay_D(cliente, modulo_on_off)
 Lay_R(user, cliente)
 
 
