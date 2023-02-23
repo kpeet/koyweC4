@@ -61,7 +61,8 @@ Rel(modulo_on_off, vitawallet,$RELACION_VITAWALLET)
 
 
 'declaraciones para distribución espacial
-Lay_D(user, c0)
+Lay_D(user, cliente)
+Lay_D(c0, cliente)
 
 'Lay_D(cliente, modulo_on_off)
 Lay_R(user, cliente)

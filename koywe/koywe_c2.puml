@@ -1,0 +1,63 @@
+@startuml koyweService_C2
+' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../C4_Context.puml
+!include modulos.puml
+!include modelos.puml
+!include sistemas_externos.puml
+!include relaciones.puml
+!include usuarios.puml
+!include perimetros.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Koywe in a nutshell
+
+Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
+    System_Ext(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.")
+    System_Ext(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId.")
+    System_Ext(widget, "Widget y API de Koywe", "Permite realizar operaciones de onramp y offramp")
+    System_Ext(page, "Página Web de Koywe", "Plataforma introductoria a los clientes nuevos de Koywe")
+}
+
+
+
+Person_Ext(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
+
+Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
+    System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
+}
+
+Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE)
+Rel(correo,user, $RELACION_MAIL_USUARIO)
+Rel(page,widget, "Usa los servicios")
+
+Rel(cliente_koywe, widget,$RELACION_CLIENTE_KOYWE)
+Rel(correo, cliente,"Webhooks")
+
+Rel(widget, db,"Consulta credenciales, guarda OrderId")
+
+Rel(widget, correo,"Usa servicios")
+
+'declaraciones para distribución espacial
+Lay_D(user, c0)
+
+'Lay_D(cliente, modulo_on_off)
+Lay_D(user, cliente)
+Lay_L(correo, widget)
+Lay_R(db, widget)
+
+
+
+
+
+
+
+
+
+
+
+@enduml
