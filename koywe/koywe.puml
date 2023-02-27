@@ -16,7 +16,7 @@ LAYOUT_WITH_LEGEND()
 
 title Koywe in a nutshell
 
-Person_Ext(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
+Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
 
 Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
     System(modulo_on_off, "Sistema Koywe", $DESCRIPCION_WIDGET)
