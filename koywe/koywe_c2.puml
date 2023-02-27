@@ -37,11 +37,14 @@ Rel(correo,user, $RELACION_MAIL_USUARIO)
 Rel(page,widget, "Usa los servicios")
 
 Rel(cliente_koywe, widget,$RELACION_CLIENTE_KOYWE)
+Rel(cliente_koywe, api,"usa los servicios")
 'Rel(correo, cliente_koywe,"Webhooks")
 
 Rel(widget, db,"Consulta credenciales, guarda OrderId")
-
 Rel(widget, correo,"Usa servicios")
+
+Rel(api, db,"Consulta credenciales, guarda OrderId")
+Rel(api, correo,"Usa servicios")
 
 Lay_U(user, cliente)
 
