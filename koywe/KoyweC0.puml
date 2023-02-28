@@ -1,0 +1,61 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title System Context diagram for Internet Banking System
+
+Person(customer, "Usuario", "Un usuario que necesita pagar o recibir en crypto")
+Person(customerB2B, "Ciente", "Empresa que incorpora a Koywe para realizar las transacciones de su sistema")
+System(koywe_system, "Koywe System", "Permite a los usuarios realizar pagos en modenas naciones y transformarlas a crypto y su viseversa.")
+
+
+System_Ext(metamap, "Metamap System", "Verifica identidad de usuarios e indica si estan habilitados o no para operar")
+
+
+System_Ext(blockstream, "BlockStream System", "blockchain platform")
+System_Ext(polygon, "Polygon System", "blockchain platform")
+System_Ext(etherscan, "Etherscan System", "blockchain platform")
+System_Ext(bscScan, "BscScan System", "blockchain platform")
+
+
+System_Ext(transbank, "Transbank System", "medio de pago")
+System_Ext(fintoc, "FINTOC System", "medio de pago")
+System_Ext(khipu, "Khipu System", "medio de pago")
+System_Ext(wiremx, "WIREMX System", "medio de pago")
+System_Ext(wirecl, "WIRECL System", "medio de pago")
+System_Ext(wireco, "WIRECO System", "medio de pago")
+
+
+System_Ext(mail_system, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+
+'relacion
+Rel(customer, koywe_system, "Uses")
+Rel(customerB2B, koywe_system, "Uses")
+Rel(koywe_system, metamap, "Uses")
+
+Rel_Back(customer, mail_system, "Sends e-mails to")
+Rel_Back(customerB2B, mail_system, "Sends e-mails to")
+Rel_Back(customer, metamap, "Sends e-mails to")
+Rel_Neighbor(koywe_system, mail_system, "Sends e-mails", "SMTP")
+Rel(blockstream, koywe_system, "crypto")
+Rel(polygon, koywe_system, "crypto")
+Rel(etherscan, koywe_system, "crypto")
+Rel(bscScan, koywe_system, "crypto")
+
+
+
+
+Rel(koywe_system, fintoc, "moneda nacional")
+Rel(koywe_system, khipu, "moneda nacional")
+Rel(koywe_system,wiremx,  "moneda nacional")
+Rel( koywe_system, wirecl,"moneda nacional")
+Rel(koywe_system,wireco,  "moneda nacional")
+Rel(koywe_system, transbank, "moneda nacional")
+
+
+
+
+@enduml

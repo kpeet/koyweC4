@@ -1,0 +1,57 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Container.puml
+
+' LAYOUT_TOP_DOWN()
+' LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Container diagram for Internet Banking System
+
+Person(customer, Customer, "A customer of the bank, with personal bank accounts")
+
+System_Boundary(c1, "Koywe System") {
+    Container(web_app, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking SPA")
+    Container(spa, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to cutomers via their web browser")
+    ContainerDb(database, "Database", "MongoDB Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    Container(ramp_api, "API Application", "", "Provides Internet banking functionality via API")
+}
+
+System_Ext(transbank, "Transbank System", "medio de pago")
+System_Ext(fintoc, "FINTOC System", "medio de pago")
+System_Ext(khipu, "Khipu System", "medio de pago")
+System_Ext(wiremx, "WIREMX System", "medio de pago")
+System_Ext(wirecl, "WIRECL System", "medio de pago")
+System_Ext(wireco, "WIRECO System", "medio de pago")
+
+
+System_Ext(blockstream, "BlockStream System", "blockchain platform")
+System_Ext(polygon, "Polygon System", "blockchain platform")
+System_Ext(etherscan, "Etherscan System", "blockchain platform")
+System_Ext(bscScan, "BscScan System", "blockchain platform")
+
+System_Ext(email_system, "E-Mail System", "The internal Microsoft Exchange system")
+
+Rel(customer, web_app, "Uses", "HTTPS")
+Rel(customer, spa, "Uses", "HTTPS")
+
+Rel_Neighbor(web_app, spa, "Delivers")
+Rel(spa, ramp_api, "Uses", "async, JSON/HTTPS")
+Rel_Back_Neighbor(database, ramp_api, "Reads from and writes to", "sync, JDBC")
+
+Rel_Back(customer, email_system, "Sends e-mails to")
+Rel_Back(email_system, ramp_api, "Sends e-mails using", "sync, SMTP")
+
+Rel(blockstream, ramp_api, "crypto")
+Rel(polygon, ramp_api, "crypto")
+Rel(etherscan, ramp_api, "crypto")
+Rel(bscScan, ramp_api, "crypto")
+
+Rel(ramp_api, khipu, "moneda nacional")
+Rel(ramp_api, fintoc, "moneda nacional")
+Rel(ramp_api,wiremx,  "moneda nacional")
+Rel( ramp_api, wirecl,"moneda nacional")
+Rel(ramp_api,wireco,  "moneda nacional")
+Rel(ramp_api, transbank, "moneda nacional")
+@enduml
