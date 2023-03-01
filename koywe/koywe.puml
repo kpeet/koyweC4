@@ -37,25 +37,23 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
     System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
     System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp.")
-    System_Ext(Github, "Github", "")
-    System_Ext(aws, "AWS", $S_EXT_DESCRIPCION_FIREBLOCK)
-    System_Ext(vercel, "Vercel", $S_EXT_DESCRIPCION_FIREBLOCK)
-    System_Boundary(bancos, "Bancos"){
-        System_Ext(banco_pe1, "BBVA", "Cuenta de Koywe en Perú.")
-        System_Ext(banco_pe2, "BCP", "Cuenta de Koywe en Perú.")
-        System_Ext(banco_chl1, "Santander", "Cuenta de Koywe en Chile.")
-        System_Ext(banco_col1, "Banco Colombia NN", "Cuenta de Koywe en Colombia.")
-        System_Ext(banco_mex1, "Banco Mexicano NN", "Cuenta de Koywe en México.")
-    }
-    System_Boundary(exchange, "Consultoras de precios de token-fiat"){
-        System_Ext(coingecko, "CoinGecko", "")
-        System_Ext(bitso, "Bitso", "")
-        System_Ext(buda, "Buda", "")
-        System_Ext(mkt, "CryptoMKT", "")
-    }
+    System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
+    System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
+    System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
 }
-
-
+System_Boundary(bancos, "Bancos"){
+    System_Ext(banco_pe1, "BBVA", "Cuenta de Koywe en Perú.")
+    System_Ext(banco_pe2, "BCP", "Cuenta de Koywe en Perú.")
+    System_Ext(banco_chl1, "Santander", "Cuenta de Koywe en Chile.")
+    System_Ext(banco_col1, "Banco Colombia NN", "Cuenta de Koywe en Colombia.")
+    System_Ext(banco_mex1, "Banco Mexicano NN", "Cuenta de Koywe en México.")
+}
+System_Boundary(exchange, "Consultoras de precios de token-fiat"){
+    System_Ext(coingecko, "CoinGecko", "Plataforma para consultar precios crypto-fiat.")
+    System_Ext(bitso, "Bitso", "Plataforma de servicios de crypto en latinoamérica. Permite comprar, vender y guardas crypto.")
+    System_Ext(buda, "Buda", "Permite consultar precios de variadas criptomonedas.")
+    System_Ext(mkt, "CryptoMKT", "Plataforma para consultar precios crypto-fiat.")
+}
 
 'RELACIONES DE SISTEMA
 'Relaciones sistema/módulos
@@ -75,9 +73,16 @@ Rel(modulo_on_off, fintoc,$RELACION_FINTOC)
 'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
 Rel(modulo_on_off, transbank,$RELACION_TRANSBANK)
 Rel(modulo_on_off, invopop, "Generar y administrar boletas y facturas")
+Rel(modulo_on_off, github, "subir y bajar código")
+Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
+Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
 Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp.")
 
 Rel(modulo_on_off, banco_chl1,"Obtiene depósitos")
+Rel(modulo_on_off, banco_col1,"Obtiene depósitos")
+Rel(modulo_on_off, banco_mex1,"Obtiene depósitos")
+Rel(modulo_on_off, banco_pe1,"Obtiene depósitos")
+Rel(modulo_on_off, banco_pe2,"Obtiene depósitos")
 
 Rel(modulo_on_off, coingecko,"[BNB-MXN, USDC-MXN, MATIC-MXN, BNB-CLP, MATIC-CLP, DAI-CLP]")
 Rel(modulo_on_off, bitso,"[DAI-MXN, BTC-MXN, ETH-MXN, USDT-COP, USDT-MXN]")
@@ -86,14 +91,18 @@ Rel(modulo_on_off, mkt,"[USDT-CLP, USDT-PEN]")
 'Rel(modulo_on_off, vitawallet,$RELACION_VITAWALLET)
 
 
+Lay_D(banco_chl1, banco_col1)
+Lay_D(banco_col1, banco_mex1)
+Lay_D(banco_mex1, banco_pe1)
+Lay_D(banco_pe1, banco_pe2)
 
-'declaraciones para distribución espacial
-Lay_D(user, cliente)
-Lay_D(c0, cliente)
-Lay_D(bancos, sistemas_externos)
+Lay_D(coingecko, bitso)
+Lay_D(bitso, buda)
 
-'Lay_D(cliente, modulo_on_off)
-Lay_R(user, cliente)
+Lay_D(khipu, metamap)
+Lay_D(minka, fintoc)
+Lay_D(transbank, invopop)
+Lay_D(stp, fireblock)
 
 
 
