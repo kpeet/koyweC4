@@ -37,6 +37,8 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
     System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
     System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp.")
+}
+System_Boundary(sistemas_externos_dev, $PERIMETRO_SISTEMAS_EXTERNOS){
     System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
     System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
     System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
@@ -73,23 +75,24 @@ Rel(modulo_on_off, fintoc,$RELACION_FINTOC)
 'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
 Rel(modulo_on_off, transbank,$RELACION_TRANSBANK)
 Rel(modulo_on_off, invopop, "Generar y administrar boletas y facturas")
-Rel(modulo_on_off, github, "subir y bajar código")
+Rel(modulo_on_off, github, "versionamiento de código")
 Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
 Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp.")
 
-Rel(modulo_on_off, banco_chl1,"Obtiene depósitos")
-Rel(modulo_on_off, banco_col1,"Obtiene depósitos")
-Rel(modulo_on_off, banco_mex1,"Obtiene depósitos")
-Rel(modulo_on_off, banco_pe1,"Obtiene depósitos")
-Rel(modulo_on_off, banco_pe2,"Obtiene depósitos")
+Rel(modulo_on_off, banco_chl1,"Obtiene depósitos CHL en CLP")
+Rel(modulo_on_off, banco_col1,"Obtiene depósitos COL en COP")
+Rel(modulo_on_off, banco_mex1,"Obtiene depósitos MEX en MXN")
+Rel(modulo_on_off, banco_pe1,"Obtiene depósitos PE en PEN")
+Rel(modulo_on_off, banco_pe2,"Obtiene depósitos PE en PEN")
 
-Rel(modulo_on_off, coingecko,"[BNB-MXN, USDC-MXN, MATIC-MXN, BNB-CLP, MATIC-CLP, DAI-CLP]")
-Rel(modulo_on_off, bitso,"[DAI-MXN, BTC-MXN, ETH-MXN, USDT-COP, USDT-MXN]")
-Rel(modulo_on_off, buda,"[USDC-PEN, BTC-PEN, BTC-CLP, ETH-CLP, ETH-COP, USDC-CLP, BTC-COP, USDC-COP, ETH-PEN]")
-Rel(modulo_on_off, mkt,"[USDT-CLP, USDT-PEN]")
+Rel(modulo_on_off, coingecko,"Consulta precios de [BNB-MXN, USDC-MXN, MATIC-MXN, BNB-CLP, MATIC-CLP, DAI-CLP]")
+Rel(modulo_on_off, bitso,"Consulta precios de [DAI-MXN, BTC-MXN, ETH-MXN, USDT-COP, USDT-MXN]")
+Rel(modulo_on_off, buda,"Consulta precios de [USDC-PEN, BTC-PEN, BTC-CLP, ETH-CLP, ETH-COP, USDC-CLP, BTC-COP, USDC-COP, ETH-PEN]")
+Rel(modulo_on_off, mkt,"Consulta precios de [USDT-CLP, USDT-PEN]")
 'Rel(modulo_on_off, vitawallet,$RELACION_VITAWALLET)
 
+Lay_D(cliente, sistemas_externos_dev)
 
 Lay_D(banco_chl1, banco_col1)
 Lay_D(banco_col1, banco_mex1)
@@ -103,6 +106,7 @@ Lay_D(khipu, metamap)
 Lay_D(minka, fintoc)
 Lay_D(transbank, invopop)
 Lay_D(stp, fireblock)
+
 
 
 

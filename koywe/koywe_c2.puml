@@ -1,7 +1,5 @@
 @startuml koyweService_C2
-' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
-' uncomment the following line and comment the first to use locally
-' !include C4_Context.puml
+'!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include ../C4_Context.puml
 !include modulos.puml
 !include modelos.puml
@@ -9,6 +7,17 @@
 !include relaciones.puml
 !include usuarios.puml
 !include perimetros.puml
+!include ../C4_Container.puml
+
+!define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+!include osaPuml/Common.puml
+!include osaPuml/User/all.puml
+
+!include <office/Servers/database_server>
+!include <office/Servers/file_server>
+!include <office/Servers/application_server>
+!include <office/Concepts/service_application>
+!include <office/Concepts/firewall>
 
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
@@ -16,12 +25,23 @@ LAYOUT_WITH_LEGEND()
 
 title Koywe in a nutshell
 
-Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
-    System(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.")
-    System(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId.")
-    System(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp")
-    System(api, "API de Koywe", "Permite realizar operaciones de onramp y offramp")
-    System(page, "Página Web de Koywe", "Plataforma introductoria a los clientes nuevos de Koywe")
+'AddElementTag("v1.0", $borderColor="#d73027")
+'AddElementTag("v1.1", $fontColor="#d73027")
+'AddElementTag("backup", $fontColor="orange")
+
+AddElementTag("micro service", $bgColor="CornflowerBlue", $fontColor="white")
+AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $sprite="database_server", $fontColor="white")
+AddRelTag("linea", $textColor="Gray", $lineColor="Gray", $lineStyle = DashedLine())
+AddContainerTag("webApp", $sprite="application_server", $legendText="web app container")
+
+System_Boundary(c0, $PERIMETRO_KOYWE ) {
+    Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.")
+    ContainerDb(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
+    Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp")
+    Container(api, "API de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "micro service")
+    Container(page, "Página Web de Koywe", "Plataforma introductoria a los clientes nuevos de Koywe", $tags = "webApp")
+    Container(ticker, "ticker", "Generador de precios para Koywe")
+    Container(Scrapping, "Scrapping Santander CHL", "Consulta los depósitos al banco Santander en Chile y los registra en Koywe")
 }
 
 
@@ -32,19 +52,23 @@ Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
 
-Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE)
-Rel(correo,user, $RELACION_MAIL_USUARIO)
-Rel(page,widget, "Usa los servicios")
+Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE, $tags="linea")
+Rel(correo,user, $RELACION_MAIL_USUARIO, $tags="linea")
+Rel(page,widget, "Usa los servicios", $tags="linea")
 
-Rel(cliente_koywe, widget,$RELACION_CLIENTE_KOYWE)
-Rel(cliente_koywe, api,"usa los servicios")
+Rel(cliente_koywe, widget,$RELACION_CLIENTE_KOYWE, $tags="linea")
+Rel(cliente_koywe, api,"usa los servicios", $tags="linea")
 'Rel(correo, cliente_koywe,"Webhooks")
 
-Rel(widget, db,"Consulta credenciales, guarda OrderId")
-Rel(widget, correo,"Usa servicios")
+Rel(widget, api,"Hace llamados a [JSON/HTTPS]", $tags="linea")
 
-Rel(api, db,"Consulta credenciales, guarda OrderId")
-Rel(api, correo,"Usa servicios")
+Rel(api, db,"Lee y escribe a ", $tags="linea")
+Rel(api, correo,"Hace llamados a [JSON/HTTPS]", $tags="linea")
+
+Rel(Scrapping, api,"Lee y escribe a ", $tags="linea")
+Rel(Scrapping, db,"Hace llamados a [JSON/HTTPS]", $tags="linea")
+
+Rel(ticker, db,"Hace llamados a [JSON/HTTPS]", $tags="linea")
 
 Lay_U(user, cliente)
 
