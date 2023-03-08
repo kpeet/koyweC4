@@ -18,6 +18,9 @@
 !include <office/Servers/application_server>
 !include <office/Concepts/service_application>
 !include <office/Concepts/firewall>
+!include <office/Concepts/application_generic>
+!include <office/Services/email_service>
+!include <office/Services/online_hosted_services>
 
 'LAYOUT_TOP_DOWN()
 'LAYOUT_AS_SKETCH()
@@ -29,15 +32,17 @@ title Koywe in a nutshell
 'AddElementTag("v1.1", $fontColor="#d73027")
 'AddElementTag("backup", $fontColor="orange")
 
-AddElementTag("micro service", $bgColor="CornflowerBlue", $fontColor="white")
+AddElementTag("micro service", $bgColor="Yellow", $sprite="service_application", $fontColor="white")
 AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $sprite="database_server", $fontColor="white")
 AddRelTag("linea", $textColor="Gray", $lineColor="Gray", $lineStyle = DashedLine())
-AddContainerTag("webApp", $sprite="application_server", $legendText="web app container")
+AddContainerTag("webApp", $sprite="application_generic", $legendText="web app container")
+AddContainerTag("mail", $sprite="email_service", $legendText="web app container")
+AddContainerTag("widget", $sprite="online_hosted_services", $legendText="web app container")
 
 System_Boundary(c0, $PERIMETRO_KOYWE ) {
-    Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.")
+    Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.", $tags = "mail")
     ContainerDb(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
-    Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp")
+    Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "widget")
     Container(api, "API de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "micro service")
     Container(page, "Página Web de Koywe", "Plataforma introductoria a los clientes nuevos de Koywe", $tags = "webApp")
     Container(ticker, "ticker", "Generador de precios para Koywe")
