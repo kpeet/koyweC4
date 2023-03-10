@@ -32,8 +32,8 @@ title Koywe in a nutshell
 'AddElementTag("v1.1", $fontColor="#d73027")
 'AddElementTag("backup", $fontColor="orange")
 
-AddElementTag("micro service", $bgColor="Yellow", $sprite="service_application", $fontColor="white")
-AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $sprite="database_server", $fontColor="white")
+AddElementTag("micro service", $shape=RoundedBoxShape(), $bgColor="Yellow", $sprite="service_application", $fontColor="white")
+AddElementTag("storage", $shape=RoundedBoxShape(), $sprite="database_server", $fontColor="white")
 AddRelTag("linea", $textColor="Gray", $lineColor="Gray", $lineStyle = DashedLine())
 AddContainerTag("webApp", $sprite="application_generic", $legendText="web app container")
 AddContainerTag("mail", $sprite="email_service", $legendText="web app container")
@@ -67,12 +67,12 @@ Rel(cliente_koywe, widget, "Consume", $tags="linea")
 Rel(cliente_koywe, api,"usa los servicios", "JSON/HTTPS, GraphQL", $tags="linea")
 'Rel(correo, cliente_koywe,"Webhooks")
 
-Rel(widget, api,"Hace llamados a", "[GraphQL]", $tags="linea")
+Rel(widget, api,"Hace llamados a", "GraphQL", $tags="linea")
 
 Rel(api, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
-Rel(api, correo,"Hace llamados a", "[JSON/HTTPS]", $tags="linea")
+Rel(api, correo,"Hace llamados a", "JSON/HTTPS", $tags="linea")
 
-Rel(Scrapping, api,"Lee y escribe a ", "[JSON/HTTPS]", $tags="linea")
+Rel(Scrapping, api,"Lee y escribe a ", "JSON/HTTPS", $tags="linea")
 Rel(Scrapping, db,"Hace llamados a", "MongoDB wire protocol", $tags="linea")
 
 Rel(ticker, db,"Hace llamados a", "MongoDB wire protocol", $tags="linea")

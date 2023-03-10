@@ -25,24 +25,31 @@ Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(fireblock, $S_EXT_TITULO_FIREBLOCK, $S_EXT_DESCRIPCION_FIREBLOCK)
-    System_Ext(khipu, $S_EXT_TITULO_KHIPU, $S_EXT_DESCRIPCION_KHIPU)
-    'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
-    System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
-    System_Ext(minka, $S_EXT_TITULO_MINKA, $S_EXT_DESCRIPCION_MINKA)
-    System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
-    'System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
-    'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
-    System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
-    'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
-    System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
-    System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp.")
+    System_Boundary(on_off, "Operaciones"){
+        System_Ext(fireblock, $S_EXT_TITULO_FIREBLOCK, $S_EXT_DESCRIPCION_FIREBLOCK)
+        System_Ext(khipu, $S_EXT_TITULO_KHIPU, $S_EXT_DESCRIPCION_KHIPU)
+        'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
+        System_Ext(minka, $S_EXT_TITULO_MINKA, $S_EXT_DESCRIPCION_MINKA)
+        System_Ext(fintoc, $S_EXT_TITULO_FINTOC, $S_EXT_DESCRIPCION_FINTOC)
+        'System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
+        'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
+        System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
+        'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
+        System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp.")
+    }
+    System_Boundary(kyc, "KYC"){
+        System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
+    }
+    System_Boundary(facturas, "Facturas y Boletas"){
+        System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
+    }
+    System_Boundary(sistemas_externos_dev, "Sistemas externos de deploy y versionamiento de código."){
+        System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
+        System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
+        System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
+    }
 }
-System_Boundary(sistemas_externos_dev, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
-    System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
-    System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
-}
+
 System_Boundary(bancos, "Bancos"){
     System_Ext(banco_pe1, "BBVA", "Cuenta de Koywe en Perú.")
     System_Ext(banco_pe2, "BCP", "Cuenta de Koywe en Perú.")
