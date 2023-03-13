@@ -25,7 +25,7 @@ Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
 System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Boundary(on_off, "Operaciones"){
+    System_Boundary(on_off, "Generación y recepción de pagos"){
         System_Ext(fireblock, $S_EXT_TITULO_FIREBLOCK, $S_EXT_DESCRIPCION_FIREBLOCK)
         System_Ext(khipu, $S_EXT_TITULO_KHIPU, $S_EXT_DESCRIPCION_KHIPU)
         'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
@@ -35,15 +35,17 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
         'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
         System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
         'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
-        System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp.")
+        System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp y offramp.")
+        System_Ext(paloma, "Paloma", "Medio de pago para COL")
     }
     System_Boundary(kyc, "KYC"){
         System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
     }
-    System_Boundary(facturas, "Facturas y Boletas"){
+    System_Boundary(facturas, "Facturación"){
         System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
+        System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
     }
-    System_Boundary(sistemas_externos_dev, "Sistemas externos de deploy y versionamiento de código."){
+    System_Boundary(sistemas_externos_dev, "Despliege de aplicaciones Koywe"){
         System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
         System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
         System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
@@ -81,11 +83,15 @@ Rel(modulo_on_off, fintoc,$RELACION_FINTOC)
 'Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
 'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
 Rel(modulo_on_off, transbank,$RELACION_TRANSBANK)
+
 Rel(modulo_on_off, invopop, "Generar y administrar boletas y facturas")
+Rel(modulo_on_off, google, "Validar dirección de usuario")
+
 Rel(modulo_on_off, github, "versionamiento de código")
 Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
-Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp.")
+Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp y offramp.")
+Rel(modulo_on_off, paloma, "Generar y recibir transferencias bancarias")
 
 Rel(modulo_on_off, banco_chl1,"Obtiene depósitos CHL en CLP")
 Rel(modulo_on_off, banco_col1,"Obtiene depósitos COL en COP")

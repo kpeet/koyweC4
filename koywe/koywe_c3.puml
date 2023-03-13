@@ -1,0 +1,72 @@
+@startuml koyweService_C3
+'!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include ../C4_Context.puml
+!include modulos.puml
+!include modelos.puml
+!include sistemas_externos.puml
+!include relaciones.puml
+!include usuarios.puml
+!include perimetros.puml
+!include ../C4_Container.puml
+
+!define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+!include osaPuml/Common.puml
+!include osaPuml/User/all.puml
+
+!include <office/Servers/database_server>
+!include <office/Servers/file_server>
+!include <office/Servers/application_server>
+!include <office/Concepts/service_application>
+!include <office/Concepts/firewall>
+!include <office/Concepts/application_generic>
+!include <office/Services/email_service>
+!include <office/Services/online_hosted_services>
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Koywe in a nutshell
+
+'AddElementTag("v1.0", $borderColor="#d73027")
+'AddElementTag("v1.1", $fontColor="#d73027")
+'AddElementTag("backup", $fontColor="orange")
+
+AddElementTag("micro service", $shape=RoundedBoxShape(), $bgColor="Yellow", $sprite="service_application", $fontColor="white")
+AddElementTag("storage", $shape=RoundedBoxShape(), $sprite="database_server", $fontColor="white")
+AddRelTag("linea", $textColor="Gray", $lineColor="Gray", $lineStyle = DashedLine())
+AddContainerTag("webApp", $sprite="application_generic", $legendText="web app container")
+AddContainerTag("mail", $sprite="email_service", $legendText="web app container")
+AddContainerTag("widget", $sprite="online_hosted_services", $legendText="web app container")
+
+System_Boundary(c0, "API de Koywe" ) {
+    Container(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
+    Container(currency, "Servicios Currency", "Servicios para consultar pares.")
+    Container(tokens, "Servicios Tokens", "Servicios para consultar pares.")
+    Container(paymentprovider, "Servicios métodos de pago", "Servicios para consultar medio de pago disponibles.")
+    Container(auth, "Servicios de autenticación", "Servicios para autenticar al usuario con una sesión.")
+    Container(quote, "Servicios de quotes", "Servicios para crear y consultar quotes de operaciones.")
+    Container(bank, "Servicios de cuentas bancarias", "Servicios para crear y consultar cuentas bancarias registradas.")
+    Container(document, "Servicios de data del usuario", "Servicios para guardar información del usuario.")
+    
+}
+
+
+Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.", $tags = "mail")
+ContainerDb(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
+
+Rel(order, correo,"Hace llamados a", "JSON/HTTPS", $tags="linea")
+Rel(auth, correo,"Hace llamados a", "JSON/HTTPS", $tags="linea")
+
+Rel(order, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
+Rel(quote, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
+Rel(bank, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
+Rel(auth, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
+Rel(document, db,"escribe a ", "MongoDB wire protocol", $tags="linea")
+
+Rel(currency, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
+Rel(tokens, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
+Rel(paymentprovider, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
+
+
+@enduml
