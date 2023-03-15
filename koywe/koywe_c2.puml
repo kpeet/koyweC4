@@ -51,6 +51,7 @@ System_Boundary(c0, $PERIMETRO_KOYWE ) {
     
 }
 
+System_Ext(sistemas_externos, "Sistemas Externos")
 
 
 Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
@@ -59,8 +60,8 @@ Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
 
-Rel(user, cliente_koywe,$RELACION_USUARIO_CLIENTE, $tags="linea")
-Rel(correo,user, $RELACION_MAIL_USUARIO, $tags="linea")
+Rel(user, cliente_koywe,"Solicita contenido", $tags="linea")
+Rel(correo,user, "Envía correos para KYC/estado de transacción", $tags="linea")
 Rel(page,widget, "Consume", $tags="linea")
 
 Rel(cliente_koywe, widget, "Consume", $tags="linea")
@@ -80,7 +81,11 @@ Rel(ticker, db,"Hace llamados a", "MongoDB wire protocol", $tags="linea")
 Rel(iframe, widget,"Consume", $tags="linea")
 Rel(cliente_koywe, iframe,"usa los servicios", $tags="linea")
 
+
+Rel(api, sistemas_externos,"usa", $tags="linea")
+
 Lay_U(user, cliente)
+
 
 
 

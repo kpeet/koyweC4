@@ -36,14 +36,14 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
         System_Ext(transbank, $S_EXT_TITULO_TRANSBANK, $S_EXT_DESCRIPCION_TRANSBANK)
         'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
         System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp y offramp.")
-        System_Ext(paloma, "Paloma", "Medio de pago para COL")
+        System_Ext(palomma, "Paloma", "Medio de pago para COL")
     }
-    System_Boundary(kyc, "KYC"){
+    System_Boundary(kyc, "Registro de usuario"){
         System_Ext(metamap, $S_EXT_TITULO_METAMAP, $S_EXT_DESCRIPCION_METAMAP)
+        System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
     }
     System_Boundary(facturas, "Facturación"){
         System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
-        System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
     }
     System_Boundary(sistemas_externos_dev, "Despliege de aplicaciones Koywe"){
         System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
@@ -58,6 +58,7 @@ System_Boundary(bancos, "Bancos"){
     System_Ext(banco_chl1, "Santander", "Cuenta de Koywe en Chile.")
     System_Ext(banco_col1, "Banco Colombia NN", "Cuenta de Koywe en Colombia.")
     System_Ext(banco_mex1, "Banco Mexicano NN", "Cuenta de Koywe en México.")
+    System_Ext(banco_col2, "COPCentral", "Cuenta de Koywe en Colombia.")
 }
 System_Boundary(exchange, "Consultoras de precios de token-fiat"){
     System_Ext(coingecko, "CoinGecko", "Plataforma para consultar precios crypto-fiat.")
@@ -79,25 +80,26 @@ Rel(modulo_on_off, khipu, $RELACION_KHIPU)
 'Rel(modulo_on_off, kushky,"")
 Rel(modulo_on_off, metamap, $RELACION_METAMAP)
 Rel(modulo_on_off, minka, $RELACION_MINKA)
-Rel(modulo_on_off, fintoc,$RELACION_FINTOC)
+Rel(modulo_on_off, fintoc,"Recibir pagos de los usuarios, para onramp.")
 'Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
 'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, transbank,$RELACION_TRANSBANK)
+Rel(modulo_on_off, transbank,"Recibir pagos de los usuarios, para onramp.")
 
-Rel(modulo_on_off, invopop, "Generar y administrar boletas y facturas")
+Rel(modulo_on_off, invopop, "Generar y administrar facturas")
 Rel(modulo_on_off, google, "Validar dirección de usuario")
 
 Rel(modulo_on_off, github, "versionamiento de código")
 Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
 Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp y offramp.")
-Rel(modulo_on_off, paloma, "Generar y recibir transferencias bancarias")
+Rel(modulo_on_off, palomma, "Recibir pagos de los usuarios, para onramp.")
 
 Rel(modulo_on_off, banco_chl1,"Obtiene depósitos CHL en CLP")
 Rel(modulo_on_off, banco_col1,"Obtiene depósitos COL en COP")
 Rel(modulo_on_off, banco_mex1,"Obtiene depósitos MEX en MXN")
 Rel(modulo_on_off, banco_pe1,"Obtiene depósitos PE en PEN")
 Rel(modulo_on_off, banco_pe2,"Obtiene depósitos PE en PEN")
+Rel(modulo_on_off, banco_col2,"Obtiene depósitos COL en COP")
 
 Rel(modulo_on_off, coingecko,"Consulta precios de [BNB-MXN, USDC-MXN, MATIC-MXN, BNB-CLP, MATIC-CLP, DAI-CLP]")
 Rel(modulo_on_off, bitso,"Consulta precios de [DAI-MXN, BTC-MXN, ETH-MXN, USDT-COP, USDT-MXN]")
@@ -106,19 +108,20 @@ Rel(modulo_on_off, mkt,"Consulta precios de [USDT-CLP, USDT-PEN]")
 'Rel(modulo_on_off, vitawallet,$RELACION_VITAWALLET)
 
 Lay_D(cliente, sistemas_externos_dev)
+Lay_R(c0, exchange)
 
-Lay_D(banco_chl1, banco_col1)
-Lay_D(banco_col1, banco_mex1)
-Lay_D(banco_mex1, banco_pe1)
-Lay_D(banco_pe1, banco_pe2)
+'Lay_D(banco_chl1, banco_col1)
+'Lay_D(banco_col1, banco_mex1)
+'Lay_D(banco_mex1, banco_pe1)
+'Lay_D(banco_pe1, banco_pe2)
 
-Lay_D(coingecko, bitso)
-Lay_D(bitso, buda)
+'Lay_D(coingecko, bitso)
+'Lay_D(bitso, buda)
 
-Lay_D(khipu, metamap)
-Lay_D(minka, fintoc)
-Lay_D(transbank, invopop)
-Lay_D(stp, fireblock)
+'Lay_D(khipu, metamap)
+'Lay_D(minka, fintoc)
+'Lay_D(transbank, invopop)
+'Lay_D(stp, fireblock)
 
 
 

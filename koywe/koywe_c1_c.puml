@@ -1,0 +1,50 @@
+@startuml koyweService_exchange
+' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../C4_Context.puml
+!include modulos.puml
+!include modelos.puml
+!include sistemas_externos.puml
+!include relaciones.puml
+!include usuarios.puml
+!include perimetros.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Koywe in a nutshell
+
+Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
+
+Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
+    System(modulo_on_off, $TITULO_KOYWE, $DESCRIPCION_KOYWE)
+}
+Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
+    System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
+}
+
+System_Boundary(exchange, "Consultoras de precios de token-fiat"){
+    System_Ext(coingecko, "CoinGecko", "Plataforma para consultar precios crypto-fiat.")
+    System_Ext(bitso, "Bitso", "Plataforma de servicios de crypto en latinoamérica. Permite comprar, vender y guardas crypto.")
+    System_Ext(buda, "Buda", "Permite consultar precios de variadas criptomonedas.")
+    System_Ext(mkt, "CryptoMKT", "Plataforma para consultar precios crypto-fiat.")
+}
+
+'RELACIONES DE SISTEMA
+'Relaciones sistema/módulos
+
+'Relaciones usuarios/sitios
+Rel(modulo_on_off,user,"Envía correos para KYC/estado de transacción")
+Rel(user, cliente_koywe,"Solicita contenido")
+Rel(cliente_koywe, modulo_on_off,"Llama los servicios")
+
+Rel(modulo_on_off, coingecko,"Consulta precios de [BNB-MXN, USDC-MXN, MATIC-MXN, BNB-CLP, MATIC-CLP, DAI-CLP]")
+Rel(modulo_on_off, bitso,"Consulta precios de [DAI-MXN, BTC-MXN, ETH-MXN, USDT-COP, USDT-MXN]")
+Rel(modulo_on_off, buda,"Consulta precios de [USDC-PEN, BTC-PEN, BTC-CLP, ETH-CLP, ETH-COP, USDC-CLP, BTC-COP, USDC-COP, ETH-PEN]")
+Rel(modulo_on_off, mkt,"Consulta precios de [USDT-CLP, USDT-PEN]")
+
+
+
+@enduml

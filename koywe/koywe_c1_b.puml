@@ -1,0 +1,57 @@
+@startuml koyweService_bancos
+' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include ../C4_Context.puml
+!include modulos.puml
+!include modelos.puml
+!include sistemas_externos.puml
+!include relaciones.puml
+!include usuarios.puml
+!include perimetros.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Koywe in a nutshell
+
+Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
+
+Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
+    System(modulo_on_off, $TITULO_KOYWE, $DESCRIPCION_KOYWE)
+}
+Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
+    System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
+}
+
+System_Boundary(bancos, "Bancos"){
+    System_Ext(banco_pe1, "BBVA", "Cuenta de Koywe en Perú.")
+    System_Ext(banco_pe2, "BCP", "Cuenta de Koywe en Perú.")
+    System_Ext(banco_chl1, "Santander", "Cuenta de Koywe en Chile.")
+    System_Ext(banco_col1, "Banco Colombia NN", "Cuenta de Koywe en Colombia.")
+    System_Ext(banco_mex1, "Banco Mexicano NN", "Cuenta de Koywe en México.")
+    System_Ext(banco_col2, "COPCentral", "Cuenta de Koywe en Colombia.")
+}
+
+'RELACIONES DE SISTEMA
+'Relaciones sistema/módulos
+
+'Relaciones usuarios/sitios
+Rel(modulo_on_off,user,"Envía correos para KYC/estado de transacción")
+Rel(user, cliente_koywe,"Solicita contenido")
+Rel(cliente_koywe, modulo_on_off,"Llama los servicios")
+
+Rel(modulo_on_off, banco_chl1,"Obtiene depósitos CHL en CLP")
+Rel(modulo_on_off, banco_col1,"Obtiene depósitos COL en COP")
+Rel(modulo_on_off, banco_mex1,"Obtiene depósitos MEX en MXN")
+Rel(modulo_on_off, banco_pe1,"Obtiene depósitos PE en PEN")
+Rel(modulo_on_off, banco_pe2,"Obtiene depósitos PE en PEN")
+Rel(modulo_on_off, banco_col2,"Obtiene depósitos COL en COP")
+
+
+
+
+
+
+@enduml

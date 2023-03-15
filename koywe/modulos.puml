@@ -4,6 +4,9 @@
 !global $TITULO_WIDGET = "Widget de Koywe"
 !global $DESCRIPCION_WIDGET =  "Servicios para realizar operaciones de on y off ramp (compra y venta)"
 
+!global $TITULO_KOYWE = "Sistema Koywe"
+!global $DESCRIPCION_KOYWE =  "Servicios para realizar operaciones de on y off ramp (compra y venta)"
+
 !global $TITULO_CORREOS = "Sistema de correos"
 !global $DESCRIPCION_CORREOS =  "Envía correos a los usuarios (KYC) y a los clientes (Webhook)"
 

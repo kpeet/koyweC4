@@ -8,6 +8,7 @@
 !include usuarios.puml
 !include perimetros.puml
 !include ../C4_Container.puml
+!include ../C4_Component.puml
 
 !define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
 !include osaPuml/Common.puml
@@ -32,22 +33,30 @@ title Koywe in a nutshell
 'AddElementTag("v1.1", $fontColor="#d73027")
 'AddElementTag("backup", $fontColor="orange")
 
-AddElementTag("micro service", $shape=RoundedBoxShape(), $bgColor="Yellow", $sprite="service_application", $fontColor="white")
-AddElementTag("storage", $shape=RoundedBoxShape(), $sprite="database_server", $fontColor="white")
+AddElementTag("storage", $shape=RoundedBoxShape() , $sprite="database_server", $fontColor="white")
 AddRelTag("linea", $textColor="Gray", $lineColor="Gray", $lineStyle = DashedLine())
-AddContainerTag("webApp", $sprite="application_generic", $legendText="web app container")
 AddContainerTag("mail", $sprite="email_service", $legendText="web app container")
 AddContainerTag("widget", $sprite="online_hosted_services", $legendText="web app container")
 
+
+Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "widget")
+System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
+
 System_Boundary(c0, "API de Koywe" ) {
-    Container(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
-    Container(currency, "Servicios Currency", "Servicios para consultar pares.")
-    Container(tokens, "Servicios Tokens", "Servicios para consultar pares.")
-    Container(paymentprovider, "Servicios métodos de pago", "Servicios para consultar medio de pago disponibles.")
-    Container(auth, "Servicios de autenticación", "Servicios para autenticar al usuario con una sesión.")
-    Container(quote, "Servicios de quotes", "Servicios para crear y consultar quotes de operaciones.")
-    Container(bank, "Servicios de cuentas bancarias", "Servicios para crear y consultar cuentas bancarias registradas.")
-    Container(document, "Servicios de data del usuario", "Servicios para guardar información del usuario.")
+    Component(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
+    
+    Component(balanceaccount, "Balance Account", "LLeva registro de los movimientos en la cuenta de un usuario, y sabe su saldo. Balances por cuenta, moneda y pais.")
+    Component(exchange, "Exchange Rate", "Consulta precios de crypto a USD.")
+    Component(functions, "Functions", "Expone servicios Koywe en aws Lambda como REST.")
+    Component(resolvers, "Resolvers", "Expone servicios de Koywe en aws lambda  como GraphQL")
+
+    Component(currency, "Servicios Currency", "Servicios para consultar pares.")
+    Component(tokens, "Servicios Tokens", "Servicios para consultar pares.")
+    Component(paymentprovider, "Servicios métodos de pago", "Servicios para consultar medio de pago disponibles.")
+    Component(auth, "Servicios de autenticación", "Servicios para autenticar al usuario con una sesión.")
+    Component(quote, "Servicios de quotes", "Servicios para crear y consultar quotes de operaciones.")
+    Component(bank, "Servicios de cuentas bancarias", "Servicios para crear y consultar cuentas bancarias registradas.")
+    Component(document, "Servicios de data del usuario", "Servicios para guardar información del usuario.")
     
 }
 
@@ -67,6 +76,45 @@ Rel(document, db,"escribe a ", "MongoDB wire protocol", $tags="linea")
 Rel(currency, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
 Rel(tokens, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
 Rel(paymentprovider, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
+
+
+Rel(widget, functions,"Lee a ", "MongoDB wire protocol", $tags="linea")
+Rel(cliente_koywe, resolvers,"Lee a ", "MongoDB wire protocol", $tags="linea")
+Rel(cliente_koywe, functions,"Lee a ", "MongoDB wire protocol", $tags="linea")
+
+Lay_D(widget, c0)
+Lay_D(cliente_koywe, c0)
+Lay_R(cliente_koywe, widget)
+
+Lay_D(functions, order)
+Lay_D(resolvers, order)
+
+Lay_D(functions, balanceaccount)
+Lay_D(resolvers, balanceaccount)
+
+Lay_D(functions, exchange)
+Lay_D(resolvers, exchange)
+
+Lay_D(functions, currency)
+Lay_D(resolvers, currency)
+
+Lay_D(functions, tokens)
+Lay_D(resolvers, tokens)
+
+Lay_D(functions, paymentprovider)
+Lay_D(resolvers, paymentprovider)
+
+Lay_D(functions, auth)
+Lay_D(resolvers, auth)
+
+Lay_D(functions, quote)
+Lay_D(resolvers, quote)
+
+Lay_D(functions, bank)
+Lay_D(resolvers, bank)
+
+Lay_D(functions, document)
+Lay_D(resolvers, document)
 
 
 @enduml
