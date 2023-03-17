@@ -42,14 +42,14 @@ AddContainerTag("widget", $sprite="online_hosted_services", $legendText="web app
 Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "widget")
 System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 
-System_Boundary(c0, "API de Koywe" ) {
-    Component(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
+Container_Boundary(c0, "API de Koywe" ) {
     
     Component(balanceaccount, "Balance Account", "LLeva registro de los movimientos en la cuenta de un usuario, y sabe su saldo. Balances por cuenta, moneda y pais.")
     Component(exchange, "Exchange Rate", "Consulta precios de crypto a USD.")
     Component(functions, "Functions", "Expone servicios Koywe en aws Lambda como REST.")
     Component(resolvers, "Resolvers", "Expone servicios de Koywe en aws lambda  como GraphQL")
 
+    Component(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
     Component(currency, "Servicios Currency", "Servicios para consultar pares.")
     Component(tokens, "Servicios Tokens", "Servicios para consultar pares.")
     Component(paymentprovider, "Servicios métodos de pago", "Servicios para consultar medio de pago disponibles.")
@@ -62,7 +62,25 @@ System_Boundary(c0, "API de Koywe" ) {
 
 
 Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.", $tags = "mail")
-ContainerDb(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
+ContainerDb(db, "Base de Datos de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
+
+Rel(resolvers, currency, "", $tags="linea")
+Rel(resolvers, tokens, "", $tags="linea")
+Rel(resolvers, paymentprovider, "", $tags="linea")
+Rel(resolvers, auth, "", $tags="linea")
+Rel(resolvers, quote, "", $tags="linea")
+Rel(resolvers, bank, "", $tags="linea")
+Rel(resolvers, document, "", $tags="linea")
+Rel(resolvers, order, "", $tags="linea")
+
+Rel(functions, currency, "", $tags="linea")
+Rel(functions, tokens, "", $tags="linea")
+Rel(functions, paymentprovider, "", $tags="linea")
+Rel(functions, auth, "", $tags="linea")
+Rel(functions, quote, "", $tags="linea")
+Rel(functions, bank, "", $tags="linea")
+Rel(functions, document, "", $tags="linea")
+Rel(functions, order, "", $tags="linea")
 
 Rel(order, correo,"Hace llamados a", "JSON/HTTPS", $tags="linea")
 Rel(auth, correo,"Hace llamados a", "JSON/HTTPS", $tags="linea")
@@ -78,9 +96,12 @@ Rel(tokens, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
 Rel(paymentprovider, db,"Lee a ", "MongoDB wire protocol", $tags="linea")
 
 
-Rel(widget, functions,"Lee a ", "MongoDB wire protocol", $tags="linea")
-Rel(cliente_koywe, resolvers,"Lee a ", "MongoDB wire protocol", $tags="linea")
-Rel(cliente_koywe, functions,"Lee a ", "MongoDB wire protocol", $tags="linea")
+Rel(widget, functions,"Consume", $tags="linea")
+Rel(cliente_koywe, resolvers,"Consume", $tags="linea")
+Rel(cliente_koywe, functions,"Consume", $tags="linea")
+
+Rel(balanceaccount, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
+Rel(exchange, db,"escribe a ", "MongoDB wire protocol", $tags="linea")
 
 Lay_D(widget, c0)
 Lay_D(cliente_koywe, c0)

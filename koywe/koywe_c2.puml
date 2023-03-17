@@ -41,7 +41,7 @@ AddContainerTag("widget", $sprite="online_hosted_services", $legendText="web app
 
 System_Boundary(c0, $PERIMETRO_KOYWE ) {
     Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.", $tags = "mail")
-    ContainerDb(db, "DataBase de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
+    ContainerDb(db, "Base de Datos de Koywe", "Almacena los datos de los clientes, como su clientId, Secret, y email. Almacena OrderId. MongoDB", $tags = "storage")
     Container(widget, "Widget de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "widget")
     Container(api, "API de Koywe", "Permite realizar operaciones de onramp y offramp", $tags = "micro service")
     Container(page, "Página Web de Koywe", "Plataforma introductoria a los clientes nuevos de Koywe", $tags = "webApp")
@@ -51,8 +51,15 @@ System_Boundary(c0, $PERIMETRO_KOYWE ) {
     
 }
 
-System_Ext(sistemas_externos, "Sistemas Externos")
-
+System_Boundary(externo, "Sistemas Externos"){
+    System_Ext(ramp, "Operaciones onramp y/o offramp")
+    System_Ext(kyc, "KYC")
+    System_Ext(facturas, "Facturas y boletas")
+    System_Ext(deploy, "Deployment")
+    System_Ext(code, "Versionamiento de código")
+    System_Ext(consultoras, "Consultoras de precios de token-fiat")
+    System_Ext(bancos, "Bancos")
+}
 
 Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
 
@@ -82,7 +89,9 @@ Rel(iframe, widget,"Consume", $tags="linea")
 Rel(cliente_koywe, iframe,"usa los servicios", $tags="linea")
 
 
-Rel(api, sistemas_externos,"usa", $tags="linea")
+Rel(api, externo,"usa", $tags="linea")
+Rel(ticker, consultoras,"usa", $tags="linea")
+Rel(Scrapping, bancos,"usa", $tags="linea")
 
 Lay_U(user, cliente)
 

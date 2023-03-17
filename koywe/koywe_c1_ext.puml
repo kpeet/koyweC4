@@ -36,7 +36,9 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
         System_Ext(transbank, "Transbank", "Servicio que ofrece medio de pago en Chile.")
         'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
         System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp y offramp.")
-        System_Ext(palomma, "Paloma", "Medio de pago para COL")
+        System_Ext(palomma, "Palomma", "Medio de pago para COL, soporta banColombia y Neki (wallet).")
+        System_Ext(moneda, "Moneda", "Servicio de corredora de bolsa de fondo mutuo.")
+        System_Ext(transfiya, "TransfiYa", "Medio de pago para COL.")
     }
     System_Boundary(kyc, "Registro de usuario"){
         System_Ext(metamap, "Metamap", "Servicio que entrega las herramientas para hacer KYC (Know Your Customer).")
@@ -44,6 +46,7 @@ System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
     }
     System_Boundary(facturas, "Facturación"){
         System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
+        System_Ext(bsale, "bsale", "Emisión de documentos tributarios electrónicos para CHL.")
     }
     System_Boundary(sistemas_externos_dev, "Despliege de aplicaciones Koywe"){
         System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
@@ -72,6 +75,7 @@ Rel(modulo_on_off, fintoc,"Recibir pagos de los usuarios, para onramp.")
 Rel(modulo_on_off, transbank,"Recibir pagos de los usuarios, para onramp.")
 
 Rel(modulo_on_off, invopop, "Generar y administrar facturas")
+Rel(modulo_on_off, bsale, "Generar y administrar facturas")
 Rel(modulo_on_off, google, "Validar dirección de usuario")
 
 Rel(modulo_on_off, github, "versionamiento de código")
@@ -79,6 +83,8 @@ Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
 Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp y offramp.")
 Rel(modulo_on_off, palomma, "Recibir pagos de los usuarios, para onramp.")
+Rel(modulo_on_off, moneda, "Recibir pagos de los usuarios, para onramp.")
+Rel(modulo_on_off, transfiya, "Recibir pagos de los usuarios, para onramp.")
 
 
 
