@@ -51,15 +51,21 @@ System_Boundary(c0, $PERIMETRO_KOYWE ) {
     
 }
 
-System_Boundary(externo, "Sistemas Externos"){
-    System_Ext(ramp, "Operaciones onramp y/o offramp")
-    System_Ext(kyc, "KYC")
-    System_Ext(facturas, "Facturas y boletas")
-    System_Ext(deploy, "Deployment")
-    System_Ext(code, "Versionamiento de código")
-    System_Ext(consultoras, "Consultoras de precios de token-fiat")
-    System_Ext(bancos, "Bancos")
-}
+'System_Boundary(externo, "Sistemas Externos"){
+'    System_Ext(ramp, "Generación y recepción de pagos")
+'    System_Ext(kyc, "Registro de usuario")
+'    System_Ext(facturas, "Facturación")
+'    System_Ext(deploy, "Despliege de aplicaciones Koywe")
+'    System_Ext(consultoras, "Consultoras de precios de token-fiat")
+'    System_Ext(bancos, "Bancos")
+'}
+System_Boundary(ramp, "Generación y recepción de pagos")
+System_Boundary(kyc, "Registro de usuario")
+System_Boundary(facturas, "Facturación")
+System_Boundary(deploy, "Despliege de aplicaciones Koywe")
+System_Boundary(consultoras, "Consultoras de precios de token-fiat")
+System_Boundary(bancos, "Bancos")
+
 
 Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
 
@@ -89,9 +95,15 @@ Rel(iframe, widget,"Consume", $tags="linea")
 Rel(cliente_koywe, iframe,"usa los servicios", $tags="linea")
 
 
-Rel(api, externo,"usa", $tags="linea")
-Rel(ticker, consultoras,"usa", $tags="linea")
-Rel(Scrapping, bancos,"usa", $tags="linea")
+Rel(api, ramp,"", $tags="linea")
+Rel(api, kyc,"", $tags="linea")
+Rel(api, facturas,"", $tags="linea")
+Rel(api, deploy,"", $tags="linea")
+Rel(api, consultoras,"", $tags="linea")
+Rel(api, bancos,"", $tags="linea")
+
+Rel(ticker, consultoras, "", $tags="linea")
+Rel(Scrapping, bancos,"", $tags="linea")
 
 Lay_U(user, cliente)
 
