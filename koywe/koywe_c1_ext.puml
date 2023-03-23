@@ -24,35 +24,20 @@ Enterprise_Boundary(c0, $PERIMETRO_KOYWE ) {
 Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, $TITULO_CLIENTE_KOYWE ,$DESCRIPCION_CLIENTE_KOYWE )
 }
-System_Boundary(sistemas_externos, $PERIMETRO_SISTEMAS_EXTERNOS){
-    System_Boundary(on_off, "Generación y recepción de pagos"){
-        System_Ext(fireblock, "Fireblocks", "Plataforma para administrar y crear operaciones de compra y venta de crypto.")
-        System_Ext(khipu, "Khipu", "Plataforma que facilita las transferencias bancarias (CHL/ARG).")
-        'System_Ext(kushky, $S_EXT_TITULO_KUSHKY, $S_EXT_DESCRIPCION_KUSHKY)
-        System_Ext(minka, "Minka", "Red de pagos, actualmente usada para las transacciones de Colombia.")
-        System_Ext(fintoc, "Fintoc", "Plataforma para recibir transferencias bancarias en Chile")
-        'System_Ext(rates, $S_EXT_TITULO_RATES, $S_EXT_DESCRIPCION_RATES)
-        'System_Ext(shinkansen, $S_EXT_TITULO_SHINKANSEN, $S_EXT_DESCRIPCION_SHINKANSEN)
-        System_Ext(transbank, "Transbank", "Servicio que ofrece medio de pago en Chile.")
-        'System_Ext(vitawallet, $S_EXT_TITULO_VITAWALLET, $S_EXT_DESCRIPCION_VITAWALLET)
-        System_Ext(stp, "STP", "Plataforma que provee medio medio de pagos en México para onramp y offramp.")
-        System_Ext(palomma, "Palomma", "Medio de pago para COL, soporta banColombia y Neki (wallet).")
-        System_Ext(moneda, "Moneda", "Servicio de corredora de bolsa de fondo mutuo.")
-        System_Ext(transfiya, "TransfiYa", "Medio de pago para COL.")
-    }
-    System_Boundary(kyc, "Registro de usuario"){
-        System_Ext(metamap, "Metamap", "Servicio que entrega las herramientas para hacer KYC (Know Your Customer).")
-        System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
-    }
-    System_Boundary(facturas, "Facturación"){
-        System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
-        System_Ext(bsale, "bsale", "Emisión de documentos tributarios electrónicos para CHL.")
-    }
-    System_Boundary(sistemas_externos_dev, "Despliege de aplicaciones Koywe"){
-        System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
-        System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
-        System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
-    }
+
+System_Boundary(kyc, "Registro de usuario"){
+    System_Ext(metamap, "Metamap", "Servicio que entrega las herramientas para hacer KYC (Know Your Customer).")
+    System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
+}
+System_Boundary(facturas, "Facturación"){
+    System_Ext(invopop, "Invopop", "Servicio para automatizar facturas electrónicas.")
+    System_Ext(bsale, "bsale", "Emisión de documentos tributarios electrónicos para CHL.")
+}
+System_Boundary(sistemas_externos_dev, "Despliege de aplicaciones Koywe"){
+    System_Ext(github, "Github", "Plataforma de trabajo para almacenar, modificar y versionar código compartido remotamente.")
+    System_Ext(aws, "AWS", "Plataforma que despliega la infraestructura del backend.")
+    System_Ext(vercel, "Vercel", "plataforma que despliega la infraestrucutra del frontend.") 
+    System_Ext(azure, "Azure", "plataforma que despliega la infraestrucutra del backend (Cosigner Fireblocks).") 
 }
 
 
@@ -64,16 +49,6 @@ Rel(modulo_on_off,user, "Envía correos para KYC/estado de transacción")
 Rel(user, cliente_koywe, "Solicita contenido")
 Rel(cliente_koywe, modulo_on_off, "Llama los servicios")
 
-Rel(modulo_on_off, fireblock,"Gestión de Wallets y transacciones crypto")
-Rel(modulo_on_off, khipu, "Genera transferencias bancarias en CHL y ARG")
-'Rel(modulo_on_off, kushky,"")
-Rel(modulo_on_off, metamap, "Verificación de cuentas de usuario (KYC)")
-Rel(modulo_on_off, minka, "Generar y recibir transacciones bancarias en COL")
-Rel(modulo_on_off, fintoc,"Recibir pagos de los usuarios, para onramp.")
-'Rel(modulo_on_off, rates,$RELACION_CLIENTE_KOYWE)
-'Rel(modulo_on_off, shinkansen,$RELACION_CLIENTE_KOYWE)
-Rel(modulo_on_off, transbank,"Recibir pagos de los usuarios, para onramp.")
-
 Rel(modulo_on_off, invopop, "Generar y administrar facturas")
 Rel(modulo_on_off, bsale, "Generar y administrar facturas")
 Rel(modulo_on_off, google, "Validar dirección de usuario")
@@ -81,10 +56,8 @@ Rel(modulo_on_off, google, "Validar dirección de usuario")
 Rel(modulo_on_off, github, "versionamiento de código")
 Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
-Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos. Administra operaciones de compra onramp y offramp.")
-Rel(modulo_on_off, palomma, "Recibir pagos de los usuarios, para onramp.")
-Rel(modulo_on_off, moneda, "Recibir pagos de los usuarios, para onramp.")
-Rel(modulo_on_off, transfiya, "Recibir pagos de los usuarios, para onramp.")
+
+Rel(modulo_on_off, metamap, "Verificación de cuentas de usuario (KYC)")
 
 
 

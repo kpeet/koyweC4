@@ -1,4 +1,4 @@
-@startuml test
+@startuml crear_orden
 '!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include ../C4_Context.puml
 !include modulos.puml
@@ -49,6 +49,7 @@ Container_Boundary(c0, "Api de koywe"){
     Component(auth, "Servicios de autenticación", "Servicios para autenticar al usuario con una sesión.")
     Component(document, "Servicios de data del usuario", "Servicios para guardar información del usuario.")
     Component(quote, "Servicios de quotes", "Servicios para crear y consultar quotes de operaciones.")
+    Component(exchange, "Exchange Rate", "Consulta precios de crypto a USD.")
     Component(order, "Servicios Order", "Servicios para crear y consultar órdenes.")
 }
 
@@ -57,23 +58,42 @@ Person(user,$TITULO_SOLICITANTE_KOYWE, $DESCRIPCION_SOLICITANTE_KOYWE )
 Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
     System_Ext(cliente_koywe, "Cliente" ,"Consume los servicios de Koywe en su plataforma." )
 }
+System_Boundary(kyc, "Registro de usuario"){
+    System_Ext(metamap, "Metamap", "Servicio que entrega las herramientas para hacer KYC (Know Your Customer).")
+    System_Ext(google, "Google Maps", "Servicio de mapas para direcciones.")
+}
+System_Boundary(exchangeSystem, "Consultoras de precios de token-fiat"){
+    System_Ext(coingecko, "CoinGecko", "Plataforma para consultar precios crypto-fiat.")
+    System_Ext(bitso, "Bitso", "Plataforma de servicios de crypto en latinoamérica. Permite comprar, vender y guardas crypto.")
+    System_Ext(buda, "Buda", "Permite consultar precios de variadas criptomonedas.")
+    System_Ext(mkt, "CryptoMKT", "Plataforma para consultar precios crypto-fiat.")
+}
+Container(correo, "Sistema de Correos", "Envía emails a los usuarios para hacer KYC y Order Tracking y a clientes para hacer Webhook.", $tags = "mail")
+    
 
-Rel(user, cliente_koywe,"1: Solicita una orden", $tags="linea")
-Rel(cliente_koywe, user,"x: retorna una orden", $tags="linea")
-Rel(cliente_koywe, functions,"2: Solicita una nueva orden", $tags="linea")
-Rel(cliente_koywe, resolvers,"2: Solicita una nueva orden", $tags="linea")
+Rel_D(user, cliente_koywe,"1: Solicita una orden", $tags="linea")
+Rel_U(cliente_koywe, user,"11: retorna una orden", $tags="linea")
+Rel_D(cliente_koywe, functions,"2: Solicita una nueva orden", $tags="linea")
+Rel_D(cliente_koywe, resolvers,"2: Solicita una nueva orden", $tags="linea")
 
-Rel(functions, servicio,"3: consume servicio", $tags="linea")
-Rel(resolvers, servicio,"3: consume servicio", $tags="linea")
+Rel_D(functions, servicio,"3: consume servicio", $tags="linea")
+Rel_D(resolvers, servicio,"3: consume servicio", $tags="linea")
 
-Rel(servicio, auth,"4: Autenticar usuario", $tags="linea")
-Rel(auth, document,"5: Autorizar usuario", $tags="linea")
-Rel(document, quote,"6: Simula y crea un quote", $tags="linea")
-Rel(quote, order,"7: Crea una orden", $tags="linea")
-Rel(order, servicio,"8: retorna la orden", $tags="linea")
+Rel_D(servicio, auth,"4: Autenticar usuario", $tags="linea")
+Rel_D(auth, document,"5: Verificar usuario", $tags="linea")
+Rel_D(document, quote,"6: Simula y crea un quote", $tags="linea")
+Rel_L(quote, exchange,"7: Crea una orden", $tags="linea")
+Rel(exchange, exchangeSystem,"Consulta los precios", $tags="linea")
+Rel_D(document, metamap,"Crea una orden", $tags="linea")
+Rel_D(order, servicio,"8: retorna la orden", $tags="linea")
+Rel(auth, correo,"Solicita enviar correos al usuario", $tags="linea")
+Rel(correo, user,"Envía correos al usuario", $tags="linea")
+Rel(servicio, functions,"9: retorna la orden", $tags="linea")
+Rel(servicio, resolvers,"9: retorna la orden", $tags="linea")
+Rel(resolvers, cliente_koywe,"10: retorna la orden", $tags="linea")
+Rel(functions, cliente_koywe,"10: retorna la orden", $tags="linea")
 
 
-Lay_R(cliente, c0)
 
 
 

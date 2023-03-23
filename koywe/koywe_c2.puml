@@ -74,7 +74,7 @@ Enterprise_Boundary(cliente, $PERIMETRO_CLIENTE ) {
 }
 
 Rel(user, cliente_koywe,"Solicita contenido", $tags="linea")
-Rel(correo,user, "Envía correos para KYC/estado de transacción", $tags="linea")
+Rel_U(correo,user, "Envía correos para KYC/estado de transacción", $tags="linea")
 Rel(page,widget, "Consume", $tags="linea")
 
 Rel(cliente_koywe, widget, "Consume", $tags="linea")
@@ -95,15 +95,14 @@ Rel(iframe, widget,"Consume", $tags="linea")
 Rel(cliente_koywe, iframe,"usa los servicios", $tags="linea")
 
 
-Rel(api, ramp,"", $tags="linea")
-Rel(api, kyc,"", $tags="linea")
-Rel(api, facturas,"", $tags="linea")
-Rel(api, deploy,"", $tags="linea")
-Rel(api, consultoras,"", $tags="linea")
-Rel(api, bancos,"", $tags="linea")
-
-Rel(ticker, consultoras, "", $tags="linea")
-Rel(Scrapping, bancos,"", $tags="linea")
+Rel(api, ramp,"")
+Rel(api, kyc,"")
+Rel(api, facturas,"")
+Rel(api, deploy,"")
+Rel(api, consultoras,"")
+Rel(api, bancos,"")
+Rel(ticker, consultoras, "")
+Rel(Scrapping, bancos,"")
 
 Lay_U(user, cliente)
 

@@ -59,6 +59,7 @@ Container_Boundary(c0, "API de Koywe" ) {
     Component(quote, "Servicios de quotes", "Servicios para crear y consultar quotes de operaciones.")
     Component(bank, "Servicios de cuentas bancarias", "Servicios para crear y consultar cuentas bancarias registradas.")
     Component(document, "Servicios de data del usuario", "Servicios para guardar información del usuario.")
+    Component(contenedor, "Contenedor de facturación", "Genera las facturas a nuestros usuarios a partir de las órdenes creadas.")
     
 }
 
