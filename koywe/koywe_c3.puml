@@ -100,6 +100,11 @@ Rel(cliente_koywe, functions,"Consume", $tags="linea")
 Rel(balanceaccount, db,"Lee y escribe a ", "MongoDB wire protocol", $tags="linea")
 Rel(exchange, db,"escribe a ", "MongoDB wire protocol", $tags="linea")
 
+Rel(contenedor, db,"lee a ", "MongoDB wire protocol", $tags="linea")
+
+Rel(exchange, quote,"", $tags="linea")
+Rel(balanceaccount, order,"", $tags="linea")
+
 Lay_D(widget, c0)
 Lay_D(cliente_koywe, c0)
 Lay_R(cliente_koywe, widget)

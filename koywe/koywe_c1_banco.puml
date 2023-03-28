@@ -29,9 +29,8 @@ System_Boundary(bancos, "Bancos"){
     System_Ext(banco_pe1, "BBVA", "Cuenta de Koywe en Perú.")
     System_Ext(banco_pe2, "BCP", "Cuenta de Koywe en Perú.")
     System_Ext(banco_chl1, "Santander", "Cuenta de Koywe en Chile.")
-    System_Ext(banco_col1, "Banco Colombia NN", "Cuenta de Koywe en Colombia.")
-    System_Ext(banco_mex1, "Banco Mexicano NN", "Cuenta de Koywe en México.")
-    System_Ext(banco_col2, "COPCentral", "Cuenta de Koywe en Colombia.")
+    System_Ext(banco_col1, "COPCentral", "Cuenta de Koywe en Colombia.")
+    System_Ext(banco_mex1, "Ve Por Más", "Cuenta de Koywe en México.")
 }
 
 'RELACIONES DE SISTEMA
@@ -47,7 +46,6 @@ Rel(modulo_on_off, banco_col1,"Obtiene depósitos COL en COP")
 Rel(modulo_on_off, banco_mex1,"Obtiene depósitos MEX en MXN")
 Rel(modulo_on_off, banco_pe1,"Obtiene depósitos PE en PEN")
 Rel(modulo_on_off, banco_pe2,"Obtiene depósitos PE en PEN")
-Rel(modulo_on_off, banco_col2,"Obtiene depósitos COL en COP")
 
 
 

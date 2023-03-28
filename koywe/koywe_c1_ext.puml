@@ -58,6 +58,7 @@ Rel(modulo_on_off, vercel, "despliega la infraestructura del frontend.")
 Rel(modulo_on_off, aws, "despliega la infraestructura del backend.")
 
 Rel(modulo_on_off, metamap, "Verificación de cuentas de usuario (KYC)")
+Rel(modulo_on_off, azure, "despliega la infraestructura del backend.")
 
 
 

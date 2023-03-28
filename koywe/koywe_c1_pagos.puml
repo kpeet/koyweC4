@@ -38,6 +38,7 @@ System_Boundary(on_off, "Generación y recepción de pagos"){
     System_Ext(palomma, "Palomma", "Medio de pago para COL, soporta banColombia y Neki (wallet).")
     System_Ext(moneda, "Moneda", "Servicio de corredora de bolsa de fondo mutuo.")
     System_Ext(transfiya, "TransfiYa", "Medio de pago para COL.")
+    System_Ext(wiremx, "WIREMX", "Medio de pago para MEX. Se conecta con STP.")
 }
 
 
@@ -61,6 +62,7 @@ Rel(modulo_on_off, stp, "Genera credenciales asignadas a los usuarios mexicanos.
 Rel(modulo_on_off, palomma, "Recibir pagos de los usuarios, para onramp.")
 Rel(modulo_on_off, moneda, "Recibir pagos de los usuarios, para onramp.")
 Rel(modulo_on_off, transfiya, "Recibir pagos de los usuarios, para onramp.")
+Rel(stp, wiremx, "")
 
 
 
