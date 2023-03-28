@@ -1,4 +1,4 @@
-@startuml koyweService_bancos
+@startuml koywe_c1_banco
 ' !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
 ' !include C4_Context.puml

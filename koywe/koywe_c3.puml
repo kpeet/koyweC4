@@ -1,4 +1,4 @@
-@startuml koyweService_C3
+@startuml koywe_c3
 '!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include ../C4_Context.puml
 !include modulos.puml
